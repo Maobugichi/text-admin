@@ -8,6 +8,7 @@ import { ShowContext } from "../context";
 
 interface SideNavProps {
     show?:boolean;
+    
     setIsShow:React.Dispatch<React.SetStateAction<boolean>>
 } 
 

@@ -7,6 +7,7 @@ const Root = () => {
         <main>
             <SideNav
              setIsShow={setIsShow}
+             show={isShow}
             />
             <div className="h-[100vh] grid place-items-center">
                 <Outlet/>
