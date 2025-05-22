@@ -2,8 +2,7 @@ import Input from "./input"
 import Form from "./form"
 import { useState } from "react"
 import Button from "./button"
-import axios from "axios"
-import { handleChange } from "../utils"
+import { handleChange , handleFormSubmit } from "../utils"
 const PostKeys = () => {
     const [ data , setData ] = useState<any>({
         key:'',
@@ -13,19 +12,16 @@ const PostKeys = () => {
 
     
 
-    async function postKeys(e:React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        const { key , service } = data;
-        setShowLoader(true)
-        if (key !== '' && service !== '') {
-            const response = await axios.post('https://textflex-axd2.onrender.com/api/keys', data)
-            console.log(response)
-            setShowLoader(false)
-        }
-    }
     return(
         <Form 
-         onSubmit={postKeys}
+         onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/keys', method:"POST", 
+            onSuccess: (res) => {
+                console.log('Form success:', res);
+            },
+            onError: (err) => {
+                console.log('Form error:', err);
+            },
+            })}}
          header="Enter Api key & Service"
          height="h-[250px]"
         >

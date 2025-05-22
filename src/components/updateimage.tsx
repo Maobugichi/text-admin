@@ -14,7 +14,7 @@ const UpdateImage = () => {
     
     return(
         <Form
-         onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/admin-img', 
+         onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/admin/update', method:"PATCH", 
             onSuccess: (res) => {
                 console.log('Form success:', res);
             },

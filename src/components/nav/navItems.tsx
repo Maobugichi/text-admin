@@ -1,10 +1,4 @@
-import {
-    Home,
-    MessageCircle, 
-    Hash, 
-    Phone,
-    
-  } from 'lucide-react';
+import { Key, Image, Link2, Settings } from 'lucide-react';
 import List from '../listItem';
 import { Link } from 'react-router-dom';
 interface NavProps {
@@ -14,22 +8,22 @@ interface NavProps {
 const NavItems:React.FC<NavProps> = ({ closeNav }) => {
     const navItems = [
         {
-            icon:<Home size={17}/>,
+            icon:<Key size={17}/>,
             text:'Post Keys',
             link:'/postimg/1'
         },
         {
-            icon:<MessageCircle size={17}/>,
+            icon:<Image size={17}/>,
             text:'Post Image',
             link:'/postkeys/1'
         },
         {
-            icon:<Hash size={17}/>,
+            icon:<Link2 size={17}/>,
             text:'Post Url',
             link:'/updateimg/1'
         },
         {
-            icon:<Phone size={17}/>,
+            icon:<Settings size={17}/>,
             text:'Update API',
             link:'/updatekeys/1'
         },

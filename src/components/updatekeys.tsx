@@ -1,7 +1,6 @@
 import { useState } from "react"
 import Input from "./input"
-import axios from "axios"
-import { handleChange } from "../utils"
+import { handleChange , handleFormSubmit } from "../utils"
 import Form from "./form"
 import Button from "./button"
 
@@ -12,23 +11,17 @@ const UpdateKeys = () => {
     })
     const [ showLoader , setShowLoader ] = useState<boolean>(false)
     
-    async function submitForm(e:React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        const { key , service } = data;
-        if (key !== '' && service !== '') {
-            setShowLoader(true)
-            const response = axios.patch('https://textflex-axd2.onrender.com/api/update-keys',data)
-            console.log((await response).data)
-            setShowLoader(false)
-            setData({
-              key:'',
-              service:''
-            })
-        }
-    }
+    
     return(
         <Form
-         onSubmit={submitForm}
+         onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/update-keys', method:"PATCH", 
+            onSuccess: (res) => {
+                console.log('Form success:', res);
+            },
+            onError: (err) => {
+                console.log('Form error:', err);
+            },
+            })}}
          header="Update API keys"
          height="h-[350px]"
         >

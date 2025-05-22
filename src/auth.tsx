@@ -5,7 +5,7 @@ import Form from "./components/form"
 import Button from "./components/button"
 import { useNavigate , Link } from "react-router-dom"
 import Toast from "./components/toast"
-import { handleChange } from "./utils"
+import { handleChange , handleFormSubmit } from "./utils"
 import { ShowContext } from "./components/context"
 const Auth = () => {
      const myContext = useContext(ShowContext)
@@ -29,8 +29,8 @@ const Auth = () => {
         if (email !== '' && username !== '' && password !== '') {
             try {
                  setShowLoader(true)
-                const response = await axios.post('https://textflex-axd2.onrender.com/api/adminAuth', data); 
-                setUserData(response.data)
+                const response = await axios.post('https://textflex-axd2.onrender.com/', data); 
+                
                 if (response.data) {
                    navigate('/')
                 }
@@ -38,14 +38,7 @@ const Auth = () => {
             } 
             catch(err:any) {
                 console.log(err.response.data.message)
-                    setErr(err.response.data.message)
-                    setShow(true)
-                    setShowLoader(false)
-                    setData({
-                        email:'',
-                        username:'',
-                        password:''  
-                    })
+                  
             }
            
         }
@@ -66,7 +59,19 @@ const Auth = () => {
         errorMssg={err}
        /> 
         <Form
-         onSubmit={submitCredentials}
+          onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/adminAuth', method:"POST", 
+            onSuccess: (res) => {
+                console.log('Form success:', res);
+                setUserData(res.data)
+                navigate('/')
+            },
+            onError: (err) => {
+                    setErr(err?.response?.data?.message)
+                    setShow(true)
+                    setShowLoader(false)
+                   
+            },
+            })}}
          header="Enter Your Details"
          height="h-[350px]"
         >

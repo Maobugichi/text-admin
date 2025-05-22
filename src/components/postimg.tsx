@@ -12,7 +12,7 @@ const PostImg = () => {
     
     return(
         <Form
-         onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/admin-img', 
+         onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/admin-img',method:'POST', 
             onSuccess: (res) => {
                 console.log('Form success:', res);
             },

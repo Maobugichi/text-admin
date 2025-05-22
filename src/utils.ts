@@ -11,6 +11,7 @@
  const checkAuth =  () => {
    try {
       const storedUserData = localStorage.getItem("userData");
+      console.log(storedUserData)
       if (!storedUserData) return null;
       const userData = JSON.parse(storedUserData);
       if (!userData || Object.keys(userData).length === 0) {
@@ -28,9 +29,9 @@ type SubmitOptions<T> = {
   e: React.FormEvent<HTMLFormElement>;
   data: T;
   setShowLoader: (loading: boolean) => void;
-  setData?: (emptyData: T) => void;        // optional if no reset needed
+  setData?: (emptyData: T) => void;        
   endpoint: string;
-  method?: 'POST' | 'PATCH' | 'PUT';       // default = POST
+  method: 'POST' | 'PATCH' | 'PUT';      
   onSuccess?: (responseData: any) => void;
   onError?: (err: any) => void;
 };
@@ -41,7 +42,7 @@ type SubmitOptions<T> = {
   setShowLoader,
   setData,
   endpoint,
-  method = 'POST',
+  method,
   onSuccess,
   onError
 }: SubmitOptions<T>) {
