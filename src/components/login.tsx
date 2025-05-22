@@ -33,6 +33,7 @@ const Login = () => {
        <Toast
         show={show}
         errorMssg={err}
+        color="bg-red-200 border-red-700"
        />  
         <Form
           onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/admin-login', method:"POST", 
@@ -46,6 +47,10 @@ const Login = () => {
                  setErr(err?.response?.data?.message)
                  setShow(true)
                  setShowLoader(false)
+                 setData({
+                  email:'',
+                  password:''
+                })
             },
             })}}
          header="Enter Your details to login"

@@ -9,9 +9,9 @@ import { checkAuth } from './utils'
 import UpdateKeys from './components/updatekeys'
 import UpdateImage from './components/updateimage'
 import Login from './components/login'
+import UpdateBalance from './components/updatebalance'
 
 function App() {
-  console.log(checkAuth())
   return (
     <ContextProvider>
     <HashRouter>
@@ -19,11 +19,12 @@ function App() {
          <Route path="auth/:1" element={<Auth />} /> 
           <Route path="login/:1" element={<Login />} /> 
           <Route path="/" element={<Root />}>
-            <Route index element={<Navigate to={checkAuth() ? "auth/1" :"postimg/1"} />} />
+            <Route index element={<Navigate to={checkAuth() ?  "postkeys/1" : "auth/1" } />} />
             <Route path="postimg/:id" element={<PostImg/>}/>
             <Route path="postkeys/:id" element={<PostKeys/>}/>
             <Route path="updateimg/:id" element={<UpdateImage/>}/>
             <Route path="updatekeys/:id" element={<UpdateKeys/>}/>
+            <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
           </Route>
       </Routes>
     </HashRouter>

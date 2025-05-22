@@ -29,23 +29,28 @@ const Auth = () => {
         }       
     },[show])
     return(
-      <div className="h-[100vh] grid place-items-center relative">
+      <div className="h-[100vh] grid place-items-center relative overflow-hidden">
        <Toast
         show={show}
         errorMssg={err}
+        color="bg-red-200 border-red-700"
        /> 
         <Form
           onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/adminAuth', method:"POST", 
             onSuccess: (res) => {
-                console.log('Form success:', res);
                 setUserData(res.data)
-                navigate('/')
+                navigate('/postkeys/1')
             },
             onError: (err) => {
-                    setErr(err?.response?.data?.message)
+                    console.log(err.response.data.message)
+                    setErr(err?.response?.data?.message || err.response.data)
                     setShow(true)
                     setShowLoader(false)
-                   
+                    setData({
+                        email:'',
+                        username:'',
+                        password:''
+                    })
             },
             })}}
          header="Enter Your Details"
@@ -59,9 +64,9 @@ const Auth = () => {
               type="submit"
               showLoader={showLoader}
             />
-            <p>Already have an account?
+            <p className="flex gap-2 justify-center">Already have an account?
                 <Link to="/login/1">
-                  <span className="underline text-blue-600">Login</span>
+                  <span  className="underline text-sm text-blue-600">Login</span>
                 </Link>
             </p>
             

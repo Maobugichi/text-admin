@@ -2,11 +2,12 @@ import { AnimatePresence, motion } from "motion/react";
 
 interface ToastProps {
     errorMssg:string;
-    show:boolean
+    show:boolean;
+    color:string
 }
 
 
-const Toast:React.FC<ToastProps> = ({ errorMssg , show }) => {
+const Toast:React.FC<ToastProps> = ({ errorMssg , show , color }) => {
 
     return(
         <AnimatePresence>
@@ -17,7 +18,7 @@ const Toast:React.FC<ToastProps> = ({ errorMssg , show }) => {
                      initial={{ y: -200 }}
                      animate={{ y: 0 }}
                      exit={{ y: -200}}
-                     className=" absolute w-[30%] left-[450px] top-10 text-center h-24 rounded-md border bg-red-200 text-white  grid place-items-center border-red-700">
+                     className={`absolute md:w-[30%] w-[90%] md:left-[450px] top-15 md:top-10 text-center h-24 rounded-md border  text-white  grid place-items-center ${color}`}>
                        <p >{errorMssg}</p>
                     </motion.div>
                 )

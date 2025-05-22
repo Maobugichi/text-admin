@@ -52,7 +52,7 @@ const SideNav:React.FC<SideNavProps> = ({show , setIsShow }) => {
                 (<nav
                 className={`fixed z-20 md:w-[20%] h-[100vh] top-0 md:flex flex-col gap-5  border-r border-solid  ${theme ? 'bg-[#242424] border-blue-100' : 'bg-[#f9fbfd] border-[#5252]'}`}>
                     
-                    <div className={`h-[95%] ${theme ? 'text-gray-200' : 'text-black'}`}>
+                    <div className={`h-[95%] pt-15 ${theme ? 'text-gray-200' : 'text-black'}`}>
                         <NavItems
                         closeNav={closeNav}
                         />

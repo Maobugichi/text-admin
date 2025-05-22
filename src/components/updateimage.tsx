@@ -7,7 +7,8 @@ import Button from "./button"
 const UpdateImage = () => {
     const [ data,setData ] = useState<any>({
         image_url:'',
-        id:''
+        id:'',
+        content:''
     })
     const [ showLoader ,  setShowLoader ] = useState<boolean>(false);
 
@@ -23,8 +24,9 @@ const UpdateImage = () => {
             },
             })}}
          header="update image url"
-         height='h-[250px]'    
+         height='h-[320px]'    
         >
+              <Input placeholder="enter text" name="content" value={data.content} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Input placeholder="enter img url" name="image_url" value={data.image_url} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Input placeholder="enter img id" name="id" value={data.id} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Button
