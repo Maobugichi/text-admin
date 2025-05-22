@@ -21,29 +21,6 @@ const Auth = () => {
     const [ showLoader , setShowLoader ] = useState<boolean>(false)
     const navigate = useNavigate();
 
-  
-
-    async function submitCredentials(e:React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const { email , username , password } = data;
-        if (email !== '' && username !== '' && password !== '') {
-            try {
-                 setShowLoader(true)
-                const response = await axios.post('https://textflex-axd2.onrender.com/', data); 
-                
-                if (response.data) {
-                   navigate('/')
-                }
-                 
-            } 
-            catch(err:any) {
-                console.log(err.response.data.message)
-                  
-            }
-           
-        }
-    }
-
     useEffect(() => {
         if (show) {
             const timeout = setTimeout(() => {
