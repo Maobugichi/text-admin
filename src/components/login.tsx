@@ -44,7 +44,7 @@ const Login = () => {
             },
             onError: (err) => {
                 console.log('Form error:', err);
-                 setErr(err?.response?.data?.message)
+                 setErr(err?.response?.data?.message || err.response.data)
                  setShow(true)
                  setShowLoader(false)
                  setData({

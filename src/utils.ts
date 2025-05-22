@@ -11,7 +11,7 @@
  const checkAuth =  () => {
    try {
       const storedUserData = localStorage.getItem("userData");
-      console.log(storedUserData)
+      
       if (!storedUserData) return null;
       const userData = JSON.parse(storedUserData);
       if (!userData || Object.keys(userData).length === 0) {

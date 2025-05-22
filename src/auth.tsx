@@ -17,7 +17,8 @@ const Auth = () => {
     });
     const [ show , setShow ] = useState<boolean>(false);
     const [ err , setErr ] = useState<string>('');
-    const [ showLoader , setShowLoader ] = useState<boolean>(false)
+    const [ showLoader , setShowLoader ] = useState<boolean>(false);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -54,8 +55,9 @@ const Auth = () => {
             },
             })}}
          header="Enter Your Details"
-         height="h-[350px]"
+         height="h-[370px] pt-5"
         >
+          
             <Input placeholder="enter email" value={data.email} name="email" handleChange={(e) => handleChange(e, setData)} type="email"/>
             <Input placeholder="enter username" value={data.username} name="username"  handleChange={(e) => handleChange(e, setData)} type="text"/>
             <Input placeholder="enter password" value={data.password} name="password"  handleChange={(e) => handleChange(e, setData)} type="password"/>
@@ -64,6 +66,9 @@ const Auth = () => {
               type="submit"
               showLoader={showLoader}
             />
+              <label className="text-[10px] w-[60%] mx-auto">
+                password requires at least one uppercase , one lowercase and one number   
+             </label>
             <p className="flex gap-2 justify-center">Already have an account?
                 <Link to="/login/1">
                   <span  className="underline text-sm text-blue-600">Login</span>

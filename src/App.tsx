@@ -19,7 +19,7 @@ function App() {
          <Route path="auth/:1" element={<Auth />} /> 
           <Route path="login/:1" element={<Login />} /> 
           <Route path="/" element={<Root />}>
-            <Route index element={<Navigate to={checkAuth() ?  "postkeys/1" : "auth/1" } />} />
+            <Route index element={<Navigate to={checkAuth() ?   "auth/1" : "postkeys/1" } />} />
             <Route path="postimg/:id" element={<PostImg/>}/>
             <Route path="postkeys/:id" element={<PostKeys/>}/>
             <Route path="updateimg/:id" element={<UpdateImage/>}/>
