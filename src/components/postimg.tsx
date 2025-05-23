@@ -38,7 +38,7 @@ const PostImage = () => {
     try {
         console.log(formData)
         setShowLoader(true)
-         const res = await axios.put('https://textflex-axd2.onrender.com/api/admin-img', formData,{
+         const res = await axios.post('https://textflex-axd2.onrender.com/api/admin-img', formData,{
         headers: {
           'Content-Type': 'multipart/form-data'
           ,
