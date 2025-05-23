@@ -6,9 +6,10 @@ import Button from "./button"
 
 const UpdateImage = () => {
     const [ data,setData ] = useState<any>({
+        identifier:'',
         image_url:'',
-        id:'',
-        content:''
+        content:'',
+        link:''
     })
     const [ showLoader ,  setShowLoader ] = useState<boolean>(false);
 
@@ -28,6 +29,7 @@ const UpdateImage = () => {
         >
               <Input placeholder="enter text" name="content" value={data.content} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Input placeholder="enter img url" name="image_url" value={data.image_url} type="text"  handleChange={(e) => handleChange(e, setData)}/>
+              <Input placeholder="enter link" name="link" value={data.image_url} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Input placeholder="enter img id" name="id" value={data.id} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Button
                content="Submit"

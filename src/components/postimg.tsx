@@ -6,8 +6,10 @@ import Button from "./button"
 import { handleChange } from "../utils"
 const PostImg = () => {
     const [ data , setData ] = useState<any>({
+        identifier:'',
         image_url:'',
-        content:''
+        content:'',
+        link:''
     });
     const [ showLoader ,  setShowLoader ] = useState<boolean>(false);
     
@@ -24,8 +26,11 @@ const PostImg = () => {
          header="Enter image Url"
          height="h-[250px]"
         >
-            <Input placeholder="enter text" name="content" value={data.content} handleChange={(e) => handleChange(e, setData)} type="text"/>
-            <Input placeholder="enter url" name="image_url" value={data.image_url} handleChange={(e) => handleChange(e, setData)} type="text"/>
+              <Input placeholder="enter identifier" name="content" value={data.content} type="text"  handleChange={(e) => handleChange(e, setData)}/>
+              <Input placeholder="enter text" name="content" value={data.content} type="text"  handleChange={(e) => handleChange(e, setData)}/>
+              <Input placeholder="enter img url" name="image_url" value={data.image_url} type="text"  handleChange={(e) => handleChange(e, setData)}/>
+              <Input placeholder="enter link" name="link" value={data.image_url} type="text"  handleChange={(e) => handleChange(e, setData)}/>
+              <Input placeholder="enter img id" name="id" value={data.id} type="text"  handleChange={(e) => handleChange(e, setData)}/>
             <Button
              content="Submit"
              type="submit"
