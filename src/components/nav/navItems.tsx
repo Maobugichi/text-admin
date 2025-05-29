@@ -1,4 +1,4 @@
-import {  Image, Link2, Settings , CreditCard, LayoutDashboardIcon, BlocksIcon } from 'lucide-react';
+import {  Image, Link2, Settings , LayoutDashboardIcon, } from 'lucide-react';
 import List from '../listItem';
 import { Link } from 'react-router-dom';
 interface NavProps {
