@@ -44,3 +44,5 @@ const  UpdateLinks = () => {
         </Form>
     )
 }
+
+export default UpdateLinks
