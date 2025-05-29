@@ -5,9 +5,11 @@ import Form from "./form"
 import Button from "./button"
 import axios from "axios"
 
+
 const UpdateImage = () => {
     const [ data,setData ] = useState<any>({
         identifier:'',
+        header:'',
         content:'',
         link:''
     })
@@ -18,7 +20,6 @@ const UpdateImage = () => {
 
    const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-   
     if (!files || files.length === 0) return;
     const file = Array.from(files);
      console.log(file[0])
@@ -34,12 +35,13 @@ const UpdateImage = () => {
     const formData = new FormData();
     file.forEach((file:any) => formData.append('images', file));
      formData.append('content', data.content);
-    formData.append('link', data.link);
-    formData.append('identifier', data.identifier); 
+     formData.append('link', data.link);
+     formData.append('identifier', data.identifier); 
+     formData.append('header', data.header); 
     try {
         console.log(formData)
         setShowLoader(true)
-         const res = await axios.put('https://textflex-axd2.onrender.com/api/admin/update', formData,{
+         const res = await axios.put('https://api.textflex.net/api/admin/update', formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -47,8 +49,9 @@ const UpdateImage = () => {
        console.log(res)
         setData({
          identifier:'',
-        content:'',
-        link:''
+         header:'',
+         content:'',
+         link:''
        })
        setFile(null)
        setPreview('')
@@ -67,6 +70,7 @@ const UpdateImage = () => {
         >
               <Input placeholder="enter text" name="content" value={data.content} type="text"  handleChange={(e) => handleChange(e, setData)}/>
               <Input placeholder="enter identifier" name="identifier" value={data.identifier} type="text"  handleChange={(e) => handleChange(e, setData)}/>
+              <Input placeholder="enter Text Header" name="header" value={data.header} type="text"  handleChange={(e) => handleChange(e, setData)}/>
                 <div>
                      {preview !== '' && <img src={preview} alt="ad img" /> }
                 </div>

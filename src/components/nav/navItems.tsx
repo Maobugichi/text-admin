@@ -1,4 +1,4 @@
-import { Key, Image, Link2, Settings , CreditCard } from 'lucide-react';
+import {  Image, Link2, Settings , CreditCard, LayoutDashboardIcon, BlocksIcon } from 'lucide-react';
 import List from '../listItem';
 import { Link } from 'react-router-dom';
 interface NavProps {
@@ -8,10 +8,11 @@ interface NavProps {
 const NavItems:React.FC<NavProps> = ({ closeNav }) => {
     const navItems = [
         {
-            icon:<Key size={17}/>,
-            text:'Post Keys',
-            link:'/postkeys/1'
+            icon:<LayoutDashboardIcon size={17}/>,
+            text:'Dashboard',
+            link:'/dashboard/1'
         },
+        
         {
             icon:<Image size={17}/>,
             text:'Post ad',
@@ -24,14 +25,10 @@ const NavItems:React.FC<NavProps> = ({ closeNav }) => {
         },
         {
             icon:<Settings size={17}/>,
-            text:'Update API',
-            link:'/updatekeys/1'
+            text:'view API',
+            link:'/showapi/1'
         },
-        {
-            icon:<CreditCard size={17}/>,
-            text:'Update Balance',
-            link:'/updatebalance/1'
-        },
+       
        
     ]
 

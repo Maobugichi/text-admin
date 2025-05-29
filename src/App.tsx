@@ -6,10 +6,16 @@ import Root from './route/root'
 import PostImg from './components/postimg'
 import PostKeys from './components/postkeys'
 import { checkAuth } from './utils'
-import UpdateKeys from './components/updatekeys'
 import UpdateImage from './components/updateimage'
 import Login from './components/login'
 import UpdateBalance from './components/updatebalance'
+import Dashboard from './components/dashboard'
+import ShowBalance from './showBalance'
+import ShowOrders from './components/showOrders'
+import ShowUsers from './components/showusers'
+import ShowApi from './components/showapi'
+import 'react-loading-skeleton/dist/skeleton.css';
+import MoneyOut from './components/moneyOut'
 
 function App() {
   return (
@@ -19,12 +25,17 @@ function App() {
          <Route path="auth/:1" element={<Auth />} /> 
           <Route path="login/:1" element={<Login />} /> 
           <Route path="/" element={<Root />}>
-            <Route index element={<Navigate to={checkAuth() ?  "postkeys/1" : "auth/1" } />} />
+            <Route index element={<Navigate to={checkAuth() ?  "dashboard/1" : "auth/1" } />} />
+            <Route path="dashboard/:id" element={<Dashboard/>}/>
             <Route path="postimg/:id" element={<PostImg/>}/>
             <Route path="postkeys/:id" element={<PostKeys/>}/>
             <Route path="updateimg/:id" element={<UpdateImage/>}/>
-            <Route path="updatekeys/:id" element={<UpdateKeys/>}/>
+            <Route path="showapi/:id" element={<ShowApi/>}/>  
+            <Route path="showbalance/:id" element={<ShowBalance/>}/>
+             <Route path="showorders/:id" element={<ShowOrders/>}/>
+              <Route path="users/:id" element={<ShowUsers/>}/>
             <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
+            <Route path="moneyout/:id" element={<MoneyOut/>}/>
           </Route>
       </Routes>
     </HashRouter>

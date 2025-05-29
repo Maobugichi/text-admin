@@ -55,7 +55,7 @@ type SubmitOptions<T> = {
   try {
     setShowLoader(true);
 
-    const apiUrl = `https://textflex-axd2.onrender.com/${endpoint}`
+    const apiUrl = `https://api.textflex.net/${endpoint}`
     const response = await axios({
       url: apiUrl,
       method,

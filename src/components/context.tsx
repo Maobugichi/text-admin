@@ -6,6 +6,12 @@ interface ContextProps {
 
 interface UserContextType {
     userData: any; 
+    users:any;
+    api:any;
+    moneyOut:any;
+    setMoneyOut:React.Dispatch<React.SetStateAction<any>>;
+    setApi:React.Dispatch<React.SetStateAction<any>>;
+    setUsers: React.Dispatch<React.SetStateAction<any>>;
     setUserData: React.Dispatch<React.SetStateAction<any>>;
     theme:boolean;
     setTheme:React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,15 +23,30 @@ const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
     const [userData, setUserData] = useState<any>(() => {
         const saved = localStorage.getItem("userData");
         return saved ? JSON.parse(saved) : {};
+       });
+      const [users, setUsers] = useState<any>(() => {
+        const saved = localStorage.getItem("users");
+        return saved ? JSON.parse(saved) : [];
       });
+       const [api, setApi] = useState<any>(() => {
+        const saved = localStorage.getItem("api");
+        return saved ? JSON.parse(saved) : [];
+      });
+      const [ moneyOut , setMoneyOut ] = useState<any>(() => {
+        const saved = localStorage.getItem("api");
+        return saved ? JSON.parse(saved) : [];
+      })
       useEffect(() => {
+        localStorage.removeItem('users')
         localStorage.setItem("userData", JSON.stringify(userData));
-        
-      }, [userData]);
+        localStorage.setItem("users" , JSON.stringify(users))
+         localStorage.setItem("api" , JSON.stringify(api))
+         localStorage.setItem("moneyout" , JSON.stringify(moneyOut))
+      }, [userData , users ,api , moneyOut]);
     const [ theme , setTheme ] = useState<boolean>(false)  
     const contextValue = useMemo(() => (
-        {  theme , setTheme , userData , setUserData}
-    ),[theme])
+        {  theme , setTheme , userData , setUserData , users , setUsers , api , setApi , moneyOut , setMoneyOut}
+    ),[theme , userData , users , api , moneyOut])
     return(
         <ShowContext.Provider value={contextValue}>
             {children}
