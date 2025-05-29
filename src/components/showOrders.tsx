@@ -6,6 +6,7 @@ const ShowOrders = () => {
       if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
     
       const { users } = myContext;
+      console.log(users)
     return (
     <div className="p-4 mt-22">
       <h2 className="text-lg font-semibold mb-4">User Orders</h2>
@@ -26,7 +27,7 @@ const ShowOrders = () => {
               <tr key={user.email} className="border-t border-gray-200">
                 <td className="p-2">{user.username}</td>
                 <td className="p-2">{user.email}</td>
-                 <td className="p-2">{user.purchased_number}</td>
+                 <td className="p-2">{ user.purchased_number}</td>
                </tr>
             ))}
           </tbody>

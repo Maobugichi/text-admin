@@ -66,7 +66,7 @@ const myContext = useContext(ShowContext)
     return () => clearInterval(interval)
     },[])
     return(
-        <main className=" w-full  mt-20 h-[80vh]">
+        <main className=" w-full  mt-20 h-[100vh] md:h-[80vh] overflow-hidden">
             <div className="flex  flex-col w-full items-center md:flex-row md:ml-72 gap-5">
                   {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
                         <Blocks
