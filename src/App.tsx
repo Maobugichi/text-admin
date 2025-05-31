@@ -20,6 +20,7 @@ import Notifications from './components/notifs'
 import Deposits from './components/deposits'
 import EmailForm from './components/email'
 import AdminLinks from './components/services'
+import RateEditor from './components/editrate'
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
              <Route path="deposits/:id" element={<Deposits/>}/>
              <Route path="email/:id" element={<EmailForm/>}/>
              <Route path="links/:id" element={<AdminLinks/>}/>
+             <Route path="rate/:id" element={<RateEditor/>}/>
             <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
             <Route path="moneyout/:id" element={<MoneyOut/>}/>
           </Route>
