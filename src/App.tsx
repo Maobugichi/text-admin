@@ -16,6 +16,10 @@ import ShowUsers from './components/showusers'
 import ShowApi from './components/showapi'
 import 'react-loading-skeleton/dist/skeleton.css';
 import MoneyOut from './components/moneyOut'
+import Notifications from './components/notifs'
+import Deposits from './components/deposits'
+import EmailForm from './components/email'
+import AdminLinks from './components/services'
 
 function App() {
   return (
@@ -33,7 +37,11 @@ function App() {
             <Route path="showapi/:id" element={<ShowApi/>}/>  
             <Route path="showbalance/:id" element={<ShowBalance/>}/>
              <Route path="showorders/:id" element={<ShowOrders/>}/>
-              <Route path="users/:id" element={<ShowUsers/>}/>
+             <Route path="users/:id" element={<ShowUsers/>}/>
+            <Route path="notifs/:id" element={<Notifications/>}/>
+             <Route path="deposits/:id" element={<Deposits/>}/>
+             <Route path="email/:id" element={<EmailForm/>}/>
+             <Route path="links/:id" element={<AdminLinks/>}/>
             <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
             <Route path="moneyout/:id" element={<MoneyOut/>}/>
           </Route>

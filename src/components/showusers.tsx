@@ -10,7 +10,7 @@ const ShowUsers = () => {
   const [localUsers, setLocalUsers] = useState(users);
   const [loadingIds, setLoadingIds] = useState<number[]>([]); // track loading per user
 
-  // Call API to block user
+
   const blockUser = async (email: string, id: number) => {
     setLoadingIds((prev) => [...prev, id]);
     try {
@@ -28,7 +28,6 @@ const ShowUsers = () => {
     }
   };
 
-  // Call API to unblock user
   const unblockUser = async (email: string, id: number) => {
     setLoadingIds((prev) => [...prev, id]);
     try {
@@ -45,6 +44,8 @@ const ShowUsers = () => {
       setLoadingIds((prev) => prev.filter((userId) => userId !== id));
     }
   };
+
+  console.log(users)
 
   return (
     <div className="p-4 mt-22">

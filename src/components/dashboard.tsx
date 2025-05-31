@@ -12,7 +12,7 @@ const [dashboardItems, setDashboardItems] = useState<any>([]);
 const myContext = useContext(ShowContext)
 
  if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
- const { setUsers , setApi , setMoneyOut } = myContext
+ const { setUsers , setApi , setMoneyOut , setDeposit , setOrders } = myContext
     async function getDashData() {
       const response = await axios.get('https://api.textflex.net/api/admin-dash')
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
@@ -55,7 +55,9 @@ const myContext = useContext(ShowContext)
       setDashboardItems(items);
       setApi(response.data.api)
       setMoneyOut(response.data.transac)
-      setUsers(response.data.rows)
+      setUsers(response.data.use)
+      setDeposit(response.data.deposit)
+      setOrders(response.data.rows)
     }
 
     useEffect(() => {

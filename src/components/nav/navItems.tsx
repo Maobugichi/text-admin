@@ -1,4 +1,4 @@
-import {  Image, Link2, Settings , LayoutDashboardIcon, } from 'lucide-react';
+import {  Image, Link2, Settings , LayoutDashboardIcon,Bell , Download, Mail  } from 'lucide-react';
 import List from '../listItem';
 import { Link } from 'react-router-dom';
 interface NavProps {
@@ -28,6 +28,26 @@ const NavItems:React.FC<NavProps> = ({ closeNav }) => {
             text:'view API',
             link:'/showapi/1'
         },
+        {
+            icon:<Bell size={17}/>,
+            text:'notifications',
+            link:'/notifs/1'
+        },
+        {
+            icon:<Download size={17}/>,
+            text:'total deposits',
+            link:'/deposits/1'
+        },
+        {
+            icon:<Mail size={17}/>,
+            text:'bulk email',
+            link:'/email/1'
+        },
+       {
+            icon:<Link2 size={17}/>,
+            text:'social links',
+            link:'/links/1'
+        }
        
        
     ]

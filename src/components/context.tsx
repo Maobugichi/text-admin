@@ -9,6 +9,10 @@ interface UserContextType {
     users:any;
     api:any;
     moneyOut:any;
+    deposit:any;
+    orders:any;
+    setOrders:React.Dispatch<React.SetStateAction<any>>;
+    setDeposit:React.Dispatch<React.SetStateAction<any>>;
     setMoneyOut:React.Dispatch<React.SetStateAction<any>>;
     setApi:React.Dispatch<React.SetStateAction<any>>;
     setUsers: React.Dispatch<React.SetStateAction<any>>;
@@ -33,20 +37,30 @@ const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
         return saved ? JSON.parse(saved) : [];
       });
       const [ moneyOut , setMoneyOut ] = useState<any>(() => {
-        const saved = localStorage.getItem("api");
+        const saved = localStorage.getItem("moneyout");
+        return saved ? JSON.parse(saved) : [];
+      })
+      const [ deposit , setDeposit ] = useState<any>(() => {
+        const saved = localStorage.getItem("deposit");
+        return saved ? JSON.parse(saved) : [];
+      })
+      const [ orders , setOrders ] = useState<any>(() => {
+        const saved = localStorage.getItem("orders");
         return saved ? JSON.parse(saved) : [];
       })
       useEffect(() => {
-        localStorage.removeItem('users')
-        localStorage.setItem("userData", JSON.stringify(userData));
-        localStorage.setItem("users" , JSON.stringify(users))
+         localStorage.removeItem('users')
+         localStorage.setItem("userData", JSON.stringify(userData));
+         localStorage.setItem("users" , JSON.stringify(users))
          localStorage.setItem("api" , JSON.stringify(api))
          localStorage.setItem("moneyout" , JSON.stringify(moneyOut))
-      }, [userData , users ,api , moneyOut]);
+         localStorage.setItem("deposit" , JSON.stringify(deposit))
+         localStorage.setItem("orders" , JSON.stringify(orders))
+      }, [userData , users ,api , moneyOut , deposit]);
     const [ theme , setTheme ] = useState<boolean>(false)  
     const contextValue = useMemo(() => (
-        {  theme , setTheme , userData , setUserData , users , setUsers , api , setApi , moneyOut , setMoneyOut}
-    ),[theme , userData , users , api , moneyOut])
+        {  theme , setTheme , userData , setUserData , users , setUsers , api , setApi , moneyOut , setMoneyOut , deposit , setDeposit , orders , setOrders}
+    ),[theme , userData , users , api , moneyOut , orders])
     return(
         <ShowContext.Provider value={contextValue}>
             {children}
