@@ -1,11 +1,7 @@
 import { useState,  useContext } from "react";
 import axios from "axios";
 import { ShowContext } from "./context";
-interface User {
-  id: number;
-  full_name: string;
-  email: string;
-}
+
 
 const EmailForm = () => {
      const myContext = useContext(ShowContext);
