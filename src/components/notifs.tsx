@@ -32,7 +32,7 @@ useEffect(() => {
   };
 
   return (
-    <div className={`relative w-[90%] md:w-[70%] md:ml-[200px]  h-fit min-h-screen  ${open ? 'md:mt-72 mt-[500px]' : ' mt-24'}`}>
+    <div className={`relative w-[90%] md:w-[70%] md:ml-[200px]  h-fit min-h-screen  ${open ? 'md:mt-72 mt-[300px]' : ' mt-24'}`}>
       <button className="relative" onClick={handleOpen}>
         <Bell className="w-6 h-6" />
         {unseenCount > 0 && (
