@@ -44,7 +44,7 @@ const EmailForm = () => {
   };
 
   return (
-    <form className=" w-[90%] md:w-[70%] md:ml-[200px] h-fit min-h-[100vh] mt-[250px] md:mt-[500px]" onSubmit={handleSubmit}>
+    <form className=" w-[90%] md:w-[70%] md:ml-[200px] h-fit min-h-[100vh] mt-[150px] md:mt-[500px]" onSubmit={handleSubmit}>
      <div className="flex gap-2 flex-col">
         <input
         className="border h-10 border-solid"
@@ -73,7 +73,7 @@ const EmailForm = () => {
           </label>
         ))}
       </div>
-      <button type="submit">Send Email</button>
+      <button className="h-10 bg-blue-600 rounded-md text-xs w-20 text-white" type="submit">Send Email</button>
     </form>
   );
 };
