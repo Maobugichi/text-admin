@@ -8,7 +8,7 @@ const ShowOrders = () => {
     throw new Error("ShowContext must be used within a ContextProvider");
   }
 
-  const { orders } = myContext;
+  const { orders , theme } = myContext;
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredOrders = orders?.filter((order: any) => {
@@ -31,7 +31,7 @@ const ShowOrders = () => {
   }
 
   return (
-    <div className="p-4 lg:ml-[250px] mt-20 lg:mr-4">
+    <div className={`p-4 lg:ml-[150px] w-[90%] mt-20 grid gap-3 lg:mr-4  ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
       <h2 className="text-lg font-semibold mb-4">User Orders</h2>
 
       <input
@@ -39,13 +39,13 @@ const ShowOrders = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Search by username, email, number, or service"
-        className=" p-2 w-full md:w-1/2 border rounded"
+        className={`${theme ? 'placeholder:text-white' : 'placeholder:text-black'} p-2 w-full md:w-1/2 border rounded`}
       />
 
  
       <div className="hidden md:block overflow-x-auto rounded-lg border border-gray-200">
         <table className="min-w-full text-sm text-left whitespace-nowrap">
-          <thead className="bg-gray-100">
+          <thead className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100 text-black'}`}>
             <tr>
               <th className="p-3">Username</th>
               <th className="p-3">Email</th>
@@ -76,10 +76,10 @@ const ShowOrders = () => {
         </table>
       </div>
 
-      {/* Mobile Cards */}
-      <div className="md:hidden space-y-4 mt-20">
+   
+      <div className={`md:hidden space-y-4 mt-20 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
         {filteredOrders.map((user: any) => (
-          <div key={user.email + user.order_date} className="bg-white border rounded-lg p-4 shadow-sm text-sm">
+          <div key={user.email + user.order_date} className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} border rounded-lg p-4 shadow-sm text-sm`}>
             <p><strong>Username:</strong> {user.username}</p>
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Number:</strong> {user.purchased_number}</p>

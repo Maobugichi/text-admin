@@ -1,7 +1,6 @@
 import { useState , createContext , useMemo , useEffect } from "react";
 interface ContextProps {
     children: React.ReactNode,
-   
 }
 
 interface UserContextType {
@@ -48,6 +47,7 @@ const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
         const saved = localStorage.getItem("orders");
         return saved ? JSON.parse(saved) : [];
       })
+      const [ theme , setTheme ] = useState<boolean>(false)  
       useEffect(() => {
          localStorage.removeItem('users')
          localStorage.setItem("userData", JSON.stringify(userData));
@@ -57,7 +57,7 @@ const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
          localStorage.setItem("deposit" , JSON.stringify(deposit))
          localStorage.setItem("orders" , JSON.stringify(orders))
       }, [userData , users ,api , moneyOut , deposit]);
-    const [ theme , setTheme ] = useState<boolean>(false)  
+ 
     const contextValue = useMemo(() => (
         {  theme , setTheme , userData , setUserData , users , setUsers , api , setApi , moneyOut , setMoneyOut , deposit , setDeposit , orders , setOrders}
     ),[theme , userData , users , api , moneyOut , orders])

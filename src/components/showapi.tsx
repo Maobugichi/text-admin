@@ -6,7 +6,7 @@ const ShowApi = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
 
-  const { api } = myContext;
+  const { api , theme } = myContext;
 
   const [data, setData] = useState<any[]>([]);
 
@@ -51,11 +51,11 @@ const ShowApi = () => {
   };
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className={`p-4 max-w-4xl mx-auto mt-20  h-[100vh] ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
       <h2 className="text-xl font-semibold mb-4">API Keys Management</h2>
-      <table className="min-w-full border border-gray-300 rounded overflow-hidden">
-        <thead>
-          <tr className="bg-gray-100 text-left">
+      <table className={`min-w-full border border-gray-300 rounded overflow-hidden ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
+        <thead className={`${theme ? 'bg-[#1a1a1a]' : 'bg-gray-100 text-gray-700'}  font-semibold`}>
+          <tr className={`${theme ? 'bg-[#1a1a1a]' : 'bg-gray-100 text-gray-700'}  text-left`}>
             <th className="p-3 border-b">Service</th>
             <th className="p-3 border-b">API Key</th>
             <th className="p-3 border-b">Actions</th>

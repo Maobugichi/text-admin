@@ -4,13 +4,13 @@ import { ShowContext } from "./context";
 
 
 const EmailForm = () => {
-     const myContext = useContext(ShowContext);
+  const myContext = useContext(ShowContext);
 
   if (!myContext) {
     throw new Error("ShowContext must be used within a ContextProvider");
   }
 
-  const { users } = myContext;
+  const { users , theme } = myContext;
   const [subject, setSubject] = useState<string>("");
   const [content, setContent] = useState<string>("");
   
@@ -44,17 +44,17 @@ const EmailForm = () => {
   };
 
   return (
-    <form className=" w-[90%] md:w-[70%] md:ml-[200px] h-fit min-h-[100vh] mt-[150px] md:mt-[500px]" onSubmit={handleSubmit}>
+    <form className={` w-[90%] md:w-[70%] md:ml-[200px] h-fit min-h-[100vh] mt-[150px] md:mt-20 ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`} onSubmit={handleSubmit}>
      <div className="flex gap-2 flex-col">
         <input
-        className="border h-10 border-solid"
+        className={`border h-10 border-solid ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
         type="text"
         placeholder="Subject"
         value={subject}
         onChange={e => setSubject(e.target.value)}
       />
       <textarea
-         className="border border-solid h-auto min-h-20"
+         className={`border border-solid h-auto min-h-20  ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
          placeholder="Message"
          value={content}
          onChange={e => setContent(e.target.value)}

@@ -19,8 +19,9 @@ import MoneyOut from './components/moneyOut'
 import Notifications from './components/notifs'
 import Deposits from './components/deposits'
 import EmailForm from './components/email'
-import AdminLinks from './components/services'
+
 import RateEditor from './components/editrate'
+import AdminSocialLinks from './components/links'
 
 function App() {
   return (
@@ -37,13 +38,13 @@ function App() {
             <Route path="updateimg/:id" element={<UpdateImage/>}/>
             <Route path="showapi/:id" element={<ShowApi/>}/>  
             <Route path="showbalance/:id" element={<ShowBalance/>}/>
-             <Route path="showorders/:id" element={<ShowOrders/>}/>
-             <Route path="users/:id" element={<ShowUsers/>}/>
+            <Route path="showorders/:id" element={<ShowOrders/>}/>
+            <Route path="users/:id" element={<ShowUsers/>}/>
             <Route path="notifs/:id" element={<Notifications/>}/>
-             <Route path="deposits/:id" element={<Deposits/>}/>
-             <Route path="email/:id" element={<EmailForm/>}/>
-             <Route path="links/:id" element={<AdminLinks/>}/>
-             <Route path="rate/:id" element={<RateEditor/>}/>
+            <Route path="deposits/:id" element={<Deposits/>}/>
+            <Route path="email/:id" element={<EmailForm/>}/>
+            <Route path="links/:id" element={<AdminSocialLinks/>}/>
+            <Route path="rate/:id" element={<RateEditor/>}/>
             <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
             <Route path="moneyout/:id" element={<MoneyOut/>}/>
           </Route>

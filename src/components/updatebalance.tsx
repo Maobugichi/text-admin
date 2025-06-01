@@ -24,7 +24,7 @@ const UpdateBalance = () => {
         }       
     },[show])
     return(
-       <div className="h-[100vh] grid place-items-center top-10 relative overflow-hidden w-full">
+       <div className={`h-[100vh] grid place-items-center top-10 relative overflow-hidden w-full `}>
         <Toast
          show={show}
          errorMssg={err}

@@ -12,7 +12,7 @@ const [dashboardItems, setDashboardItems] = useState<any>([]);
 const myContext = useContext(ShowContext)
 
  if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
- const { setUsers , setApi , setMoneyOut , setDeposit , setOrders } = myContext
+ const { setUsers , setApi , setMoneyOut , setDeposit , setOrders , theme } = myContext
     async function getDashData() {
       const response = await axios.get('https://api.textflex.net/api/admin-dash')
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
@@ -68,20 +68,21 @@ const myContext = useContext(ShowContext)
     return () => clearInterval(interval)
     },[])
     return(
-        <main className=" w-full  mt-20 h-[100vh] md:h-[80vh] overflow-hidden">
+        <div className={` w-full  mt-32 h-[100vh] md:h-[80vh] overflow-hidden ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
             <div className="flex  flex-col w-full items-center md:flex-row md:ml-72 gap-5">
                   {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
                         <Blocks
-                        icon={items.icon}
-                        head={items.value}
-                        extra={items.label}
-                        link={items.link}
+                         icon={items.icon}
+                         head={items.value}
+                         extra={items.label}
+                         link={items.link}
+                         theme={theme}
                         />
                     )) :  <img className=" top-40 md:left-[500px] w-20 md:absolute" src={dualRing}/>
                     } 
             </div>
           
-        </main>
+        </div>
     )
 }
 

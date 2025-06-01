@@ -5,12 +5,12 @@ const MoneyOut = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
 
-  const { moneyOut } = myContext;
+  const { moneyOut ,theme } = myContext;
 
   return (
-    <div className="overflow-x-auto mt-10 px-4">
-      <table className="min-w-full bg-white border border-gray-300 rounded-md">
-        <thead className="bg-gray-100">
+    <div className={`overflow-x-auto h-[100vh]  px-4 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+      <table className={`min-w-full mt-22  border border-gray-300 rounded-md  ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+        <thead className={` ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100 text-black'}`}>
           <tr>
             <th className="text-left px-4 py-2 border-b">User ID</th>
             <th className="text-left px-4 py-2 border-b">Note</th>

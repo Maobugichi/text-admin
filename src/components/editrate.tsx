@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState , useContext } from "react";
 import axios from "axios";
+import { ShowContext } from "./context";
 
 interface Rate {
   id: number;
@@ -7,6 +8,11 @@ interface Rate {
 }
 
 const RateEditor: React.FC = () => {
+   const myContext = useContext(ShowContext);
+    if (!myContext) {
+      throw new Error("ShowContext must be used within a ContextProvider");
+    }
+    const { theme } = myContext;
   const [rates, setRates] = useState<Rate[]>([]);
   const [editId, setEditId] = useState<number | null>(null);
   const [newRate, setNewRate] = useState<string | number>("");
@@ -29,6 +35,7 @@ const RateEditor: React.FC = () => {
     setNewRate(e.target.value);
   };
 
+  console.log('hello')
   const saveEdit = async (id: number) => {
     try {
       await axios.put(`https://api.textflex.net/api/rates/${id}`, { rate: parseFloat(newRate as string) });
@@ -40,9 +47,10 @@ const RateEditor: React.FC = () => {
   };
 
   return (
-    <table className="md:w-[65%] w-[90%] md:ml-32 border border-collapse">
+    <div className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} h-[100vh] w-[70%] mt-22 md:ml-42`}>
+    <table className={`md:w-[65%]  w-[90%]  border border-collapse mt-24 `}>
       <thead>
-        <tr className="bg-gray-200">
+        <tr className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-200 text-black'}`}>
           <th className="border p-2">ID</th>
           <th className="border p-2">Rate</th>
           <th className="border p-2">Action</th>
@@ -80,6 +88,7 @@ const RateEditor: React.FC = () => {
         ))}
       </tbody>
     </table>
+    </div> 
   );
 };
 
