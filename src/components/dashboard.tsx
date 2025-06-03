@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DollarSignIcon, BriefcaseBusinessIcon, ShoppingCartIcon, UserIcon } from "lucide-react"
+import { DollarSignIcon, BriefcaseBusinessIcon, ShoppingCartIcon, UserIcon, Download } from "lucide-react"
 import {  useContext, useEffect } from "react"
 import { useState } from "react"
 import Blocks from "./blocks"
@@ -12,19 +12,20 @@ const [dashboardItems, setDashboardItems] = useState<any>([]);
 const myContext = useContext(ShowContext)
 
  if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
- const { setUsers , setApi , setMoneyOut , setDeposit , setOrders , theme } = myContext
+ const { setUsers , setApi , setMoneyOut , setDeposit , setOrders , theme , setTotalDeposit } = myContext
     async function getDashData() {
       const response = await axios.get('https://api.textflex.net/api/admin-dash')
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
-       console.log(response.data)
+      const depo = response.data.totalDepo[0].total_successful_deposit
+      console.log(response.data)
       const items = [
         {
           link:'/showbalance/1',
           label: "Total Balance",
           value: `${(Number(values[0])).toLocaleString('en-NG', {
-                        style: 'currency',
-                        currency: 'NGN',
-                        minimumFractionDigits: 2
+                      style: 'currency',
+                      currency: 'NGN',
+                      minimumFractionDigits: 2
                       }).replace('NGN', '').trim()}`,
           icon: <DollarSignIcon size={30}  className="text-green-600 " />,
         },
@@ -50,8 +51,18 @@ const myContext = useContext(ShowContext)
           value: `${values[3]} Users`,
           icon: <UserIcon size={30} className="text-purple-600" />,
         },
+        {
+          link:'/totaldeposit/1',
+          label: "Total Deposit",
+          value: `${(Number(depo)).toLocaleString('en-NG', {
+                        style: 'currency',
+                        currency: 'NGN',
+                        minimumFractionDigits: 2
+                      }).replace('NGN', '').trim()}`,
+          icon: <Download size={30} className="text-purple-600" />,
+        },
        ];
-      
+      setTotalDeposit(response.data.totalSus.rows)
       setDashboardItems(items);
       setApi(response.data.api)
       setMoneyOut(response.data.transac)
@@ -68,7 +79,7 @@ const myContext = useContext(ShowContext)
     return () => clearInterval(interval)
     },[])
     return(
-        <div className={` w-full  mt-32 h-[100vh] md:h-[80vh] overflow-hidden ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
+        <div className={` w-full  mt-32 h-[100vh] md:h-[80vh] overflow-auto ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
             <div className="flex  flex-col w-full items-center md:flex-row md:ml-72 gap-5">
                   {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
                         <Blocks

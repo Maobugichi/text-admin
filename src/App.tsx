@@ -22,6 +22,7 @@ import EmailForm from './components/email'
 
 import RateEditor from './components/editrate'
 import AdminSocialLinks from './components/links'
+import SusDepo from './components/susDepo'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="email/:id" element={<EmailForm/>}/>
             <Route path="links/:id" element={<AdminSocialLinks/>}/>
             <Route path="rate/:id" element={<RateEditor/>}/>
+             <Route path="totaldeposit/:id" element={<SusDepo/>}/>
             <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
             <Route path="moneyout/:id" element={<MoneyOut/>}/>
           </Route>

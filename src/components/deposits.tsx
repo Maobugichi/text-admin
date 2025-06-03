@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { ShowContext } from "./context";
 import { Banknote } from "lucide-react";
+import axios from "axios";
 
 const Deposits = () => {
   const myContext = useContext(ShowContext);
@@ -16,6 +17,25 @@ const Deposits = () => {
       dep.transaction_ref.toLowerCase().includes(searchTerm.toLowerCase()) ||
       dep.user_id.toString().toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleMarkSuccessful = async (id: number) => {
+  try {
+    const res = await axios.patch(`https://api.textflex.net/api/transactions/${id}/status`, {
+      newStatus: "successful",
+    });
+
+    if (res.data.success) {
+      alert("Transaction marked as successful and user credited.");
+      
+    } else {
+      alert(`Error: ${res.data.error}`);
+    }
+  } catch (error: any) {
+    console.error(error);
+    alert("Something went wrong while updating the transaction.");
+  }
+};
+
 
   return (
     <div className="w-[80%]  p-4 md:ml-[100px] mt-4">
@@ -53,9 +73,9 @@ const Deposits = () => {
                 <tr key={dep.id} className={`border-t ${theme ? 'bg-[#1a1a1a]' : 'hover:bg-gray-50 text-gray-700'}  `}>
                   <td className="p-3">{dep.transaction_ref}</td>
                   <td className="p-3">{dep.user_id}</td>
-                  <td className="p-3">
+                 <td className="p-3 flex flex-col items-center ">
                     <span
-                      className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      className={`w-full text-center px-2 py-1 rounded-full text-xs font-medium ${
                         dep.status === "pending"
                           ? "bg-yellow-100 text-yellow-700"
                           : dep.status === "successful"
@@ -65,7 +85,16 @@ const Deposits = () => {
                     >
                       {dep.status}
                     </span>
+                    {dep.status !== "successful" && (
+                      <button
+                        onClick={() => handleMarkSuccessful(dep.id)}
+                        className=" mt-1 inline-block px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+                      >
+                        Mark as Successful
+                      </button>
+                    )}
                   </td>
+
                   <td className="p-3">
                     {dep.amount ? `₦${parseFloat(dep.amount).toLocaleString()}` : "-"}
                   </td>
@@ -94,7 +123,7 @@ const Deposits = () => {
               <div className="text-xs text-gray-500">{formatDate(dep.created_at)}</div>
               <div className="font-semibold text-sm">Ref: {dep.transaction_ref}</div>
               <div className="text-sm">User ID: {dep.user_id}</div>
-              <div className="text-sm">
+              <div className="text-sm flex items-center gap-1">
                 Status:{" "}
                 <span
                   className={`font-medium ${
@@ -107,6 +136,14 @@ const Deposits = () => {
                 >
                   {dep.status}
                 </span>
+                 {dep.status !== "successful" && (
+                      <button
+                        onClick={() => handleMarkSuccessful(dep.id)}
+                        className=" mt-1 inline-block px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+                      >
+                        Mark as Successful
+                      </button>
+                    )}
               </div>
               <div className="text-sm">
                 Amount:{" "}

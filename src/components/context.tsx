@@ -10,6 +10,8 @@ interface UserContextType {
     moneyOut:any;
     deposit:any;
     orders:any;
+    totalDeposit:any;
+    setTotalDeposit:React.Dispatch<React.SetStateAction<any>>;
     setOrders:React.Dispatch<React.SetStateAction<any>>;
     setDeposit:React.Dispatch<React.SetStateAction<any>>;
     setMoneyOut:React.Dispatch<React.SetStateAction<any>>;
@@ -47,6 +49,10 @@ const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
         const saved = localStorage.getItem("orders");
         return saved ? JSON.parse(saved) : [];
       })
+      const [ totalDeposit , setTotalDeposit ] = useState<any>(() => {
+        const saved = localStorage.getItem("totaldeposit");
+        return saved ? JSON.parse(saved) : [];
+      })
       const [ theme , setTheme ] = useState<boolean>(false)  
       useEffect(() => {
          localStorage.removeItem('users')
@@ -56,10 +62,11 @@ const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
          localStorage.setItem("moneyout" , JSON.stringify(moneyOut))
          localStorage.setItem("deposit" , JSON.stringify(deposit))
          localStorage.setItem("orders" , JSON.stringify(orders))
+         localStorage.setItem("totaldeposit" , JSON.stringify(totalDeposit))
       }, [userData , users ,api , moneyOut , deposit]);
  
     const contextValue = useMemo(() => (
-        {  theme , setTheme , userData , setUserData , users , setUsers , api , setApi , moneyOut , setMoneyOut , deposit , setDeposit , orders , setOrders}
+        {  theme , setTheme , userData , setUserData , users , setUsers , api , setApi , moneyOut , setMoneyOut , deposit , setDeposit , orders , setOrders , totalDeposit , setTotalDeposit}
     ),[theme , userData , users , api , moneyOut , orders])
     return(
         <ShowContext.Provider value={contextValue}>
