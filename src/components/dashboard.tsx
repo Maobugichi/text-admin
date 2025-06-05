@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DollarSignIcon, BriefcaseBusinessIcon, ShoppingCartIcon, UserIcon, Download } from "lucide-react"
+import { DollarSignIcon, BriefcaseBusinessIcon, ShoppingCartIcon, UserIcon, Download, RocketIcon } from "lucide-react"
 import {  useContext, useEffect } from "react"
 import { useState } from "react"
 import Blocks from "./blocks"
@@ -17,7 +17,7 @@ const myContext = useContext(ShowContext)
       const response = await axios.get('https://api.textflex.net/api/admin-dash')
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
       const depo = response.data.totalDepo[0].total_successful_deposit
-      console.log(response.data)
+      const apiGains = response.data.totalApiGains[0].amount_in_dollars
       const items = [
         {
           link:'/showbalance/1',
@@ -61,6 +61,16 @@ const myContext = useContext(ShowContext)
                       }).replace('NGN', '').trim()}`,
           icon: <Download size={30} className="text-purple-600" />,
         },
+        {
+          link:'',
+          label: "API gain",
+          value: `${(Number(apiGains)).toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 2
+                      }).replace('US', '').trim()}`,
+          icon: <RocketIcon size={30} className="text-amber-600" />,
+        },
        ];
       setTotalDeposit(response.data.totalSus.rows)
       setDashboardItems(items);
@@ -79,7 +89,7 @@ const myContext = useContext(ShowContext)
     return () => clearInterval(interval)
     },[])
     return(
-        <div className={` w-full  mt-32 h-[100vh] md:h-[80vh] overflow-auto ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
+        <div className={` w-full  mt-32 h-[130vh] md:h-[80vh] overflow-auto ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
             <div className="flex  flex-col w-full items-center md:flex-row md:ml-72 gap-5">
                   {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
                         <Blocks

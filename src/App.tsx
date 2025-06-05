@@ -19,15 +19,16 @@ import MoneyOut from './components/moneyOut'
 import Notifications from './components/notifs'
 import Deposits from './components/deposits'
 import EmailForm from './components/email'
-
 import RateEditor from './components/editrate'
 import AdminSocialLinks from './components/links'
 import SusDepo from './components/susDepo'
+import ScrollToTop from './components/scrollToTheTop'
 
 function App() {
   return (
     <ContextProvider>
     <HashRouter>
+      <ScrollToTop />
       <Routes>
          <Route path="auth/:1" element={<Auth />} /> 
           <Route path="login/:1" element={<Login />} /> 
