@@ -28,6 +28,7 @@ const myContext = useContext(ShowContext)
                       minimumFractionDigits: 2
                       }).replace('NGN', '').trim()}`,
           icon: <DollarSignIcon size={30}  className="text-green-600 " />,
+          className:'md:col-span-2'
         },
         {
           link:'/moneyout/1',
@@ -38,12 +39,14 @@ const myContext = useContext(ShowContext)
                         minimumFractionDigits: 2
                       }).replace('NGN', '').trim()}`,
           icon: <BriefcaseBusinessIcon size={30} className="text-red-600" />,
+           className:''
         },
         {
           link:'/showorders/1',
           label: "Total Orders",
           value: `${values[2]} Orders`,
           icon: <ShoppingCartIcon size={30} className="text-blue-600" />,
+           className:'md:col-span-full'
         },
         {
           link:'/users/1',
@@ -89,8 +92,8 @@ const myContext = useContext(ShowContext)
     return () => clearInterval(interval)
     },[])
     return(
-        <div className={` w-full  mt-32 h-[130vh] md:h-[80vh] overflow-auto ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
-            <div className="flex  flex-col w-full items-center md:flex-row md:ml-72 gap-5">
+        <div className={` w-[75%]  mt-32 h-[130vh] md:h-[80vh] md:ml-72  ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
+            <div className=" w-full items-center grid grid-cols-1 md:grid-cols-3   gap-5">
                   {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
                         <Blocks
                          icon={items.icon}
@@ -98,11 +101,11 @@ const myContext = useContext(ShowContext)
                          extra={items.label}
                          link={items.link}
                          theme={theme}
+                         className={items.className}
                         />
                     )) :  <img className=" top-40 md:left-[500px] w-20 md:absolute" src={dualRing}/>
                     } 
             </div>
-          
         </div>
     )
 }
