@@ -18,6 +18,7 @@ const myContext = useContext(ShowContext)
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
       const depo = response.data.totalDepo[0].total_successful_deposit
       const apiGains = response.data.totalApiGains[0].amount_in_dollars
+      
       const items = [
         {
           link:'/showbalance/1',
