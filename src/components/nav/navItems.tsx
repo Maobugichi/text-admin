@@ -1,4 +1,4 @@
-import {  Image, Link2, Settings , LayoutDashboardIcon,Bell , Download, Mail, LineChart  } from 'lucide-react';
+import {   Link2, Settings , LayoutDashboardIcon,Bell , Download, Mail, LineChart  } from 'lucide-react';
 import List from '../listItem';
 import { Link } from 'react-router-dom';
 interface NavProps {
