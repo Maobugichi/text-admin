@@ -8,8 +8,10 @@ const ShowOrders = () => {
     throw new Error("ShowContext must be used within a ContextProvider");
   }
 
-  const { orders , theme } = myContext;
+  const { orders, theme } = myContext;
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const filteredOrders = orders?.filter((order: any) => {
     const query = searchQuery.toLowerCase();
@@ -19,7 +21,12 @@ const ShowOrders = () => {
       order.purchased_number?.toLowerCase().includes(query) ||
       order.service?.toLowerCase().includes(query)
     );
-  });
+  }) || [];
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   if (!orders || orders.length === 0) {
     return (
@@ -31,7 +38,7 @@ const ShowOrders = () => {
   }
 
   return (
-    <div className={`p-4 lg:ml-[150px] w-[90%] mt-20 grid gap-3 lg:mr-4  ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+    <div className={`p-4 lg:ml-[250px] w-full mt-20 grid gap-3 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
       <h2 className="text-lg font-semibold mb-4">User Orders</h2>
 
       <input
@@ -39,12 +46,11 @@ const ShowOrders = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Search by username, email, number, or service"
-        className={`${theme ? 'placeholder:text-white' : 'placeholder:text-black'} p-2 w-full md:w-1/2 border rounded`}
+        className={`p-2 w-full md:w-1/2 border rounded ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
       />
 
- 
-      <div className="hidden md:block overflow-x-auto rounded-lg border border-gray-200">
-        <table className="min-w-full text-sm text-left whitespace-nowrap">
+      <div className="w-full overflow-auto">
+        <table className="w-full min-w-[800px] text-sm text-left whitespace-nowrap border border-gray-200 rounded">
           <thead className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100 text-black'}`}>
             <tr>
               <th className="p-3">Username</th>
@@ -59,38 +65,68 @@ const ShowOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.map((user: any) => (
-              <tr key={user.email + user.order_date} className="border-t">
-                <td className="p-3">{user.username}</td>
-                <td className="p-3">{user.email}</td>
-                <td className="p-3">{user.purchased_number}</td>
-                <td className="p-3">{user.order_date}</td>
-                <td className="p-3">{user.status}</td>
-                <td className="p-3">{user.country}</td>
-                <td className="p-3">{user.service}</td>
-                <td className="p-3">{user.provider}</td>
-                <td className="p-3">₦{user.amount}</td>
+            {currentOrders.map((order: any, idx: number) => (
+              <tr key={idx} className="border-t">
+                <td className="p-3 whitespace-nowrap">{order.username}</td>
+                <td className="p-3 whitespace-nowrap">{order.email}</td>
+                <td className="p-3 whitespace-nowrap">{order.purchased_number}</td>
+                <td className="p-3 whitespace-nowrap">{order.order_date}</td>
+                <td className="p-3 whitespace-nowrap">{order.status}</td>
+                <td className="p-3 whitespace-nowrap">{order.country}</td>
+                <td className="p-3 whitespace-nowrap">{order.service}</td>
+                <td className="p-3 whitespace-nowrap">{order.provider}</td>
+                <td className="p-3 whitespace-nowrap">₦{order.amount}</td>
               </tr>
             ))}
+            {currentOrders.length === 0 && (
+              <tr>
+                <td colSpan={9} className="p-4 text-center text-gray-500">
+                  No matching orders found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
-   
-      <div className={`md:hidden space-y-4 mt-20 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
-        {filteredOrders.map((user: any) => (
-          <div key={user.email + user.order_date} className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} border rounded-lg p-4 shadow-sm text-sm`}>
-            <p><strong>Username:</strong> {user.username}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Number:</strong> {user.purchased_number}</p>
-            <p><strong>Order Date:</strong> {user.order_date}</p>
-            <p><strong>Status:</strong> {user.status}</p>
-            <p><strong>Country:</strong> {user.country}</p>
-            <p><strong>Service:</strong> {user.service}</p>
-            <p><strong>Provider:</strong> {user.provider}</p>
-            <p><strong>Amount:</strong> ₦{user.amount}</p>
-          </div>
-        ))}
+      <div className="flex justify-between items-center mt-4">
+        <div className="flex items-center space-x-2">
+          <label htmlFor="itemsPerPage">Show:</label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(parseInt(e.target.value));
+              setCurrentPage(1);
+            }}
+            className="border px-2 py-1 rounded"
+          >
+            {[5, 10, 20, 50].map((num) => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+          <span>orders per page</span>
+        </div>
+
+        <div className="space-x-2">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="px-3 py-1 rounded border bg-gray-100 hover:bg-gray-200"
+          >
+            Prev
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="px-3 py-1 rounded border bg-gray-100 hover:bg-gray-200"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

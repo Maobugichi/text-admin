@@ -36,6 +36,25 @@ const Deposits = () => {
   }
 };
 
+const handleDeleteDeposit = async (id: number) => {
+  const confirm = window.confirm("Are you sure you want to delete this deposit?");
+  if (!confirm) return;
+
+  try {
+    const res = await axios.delete(`https://api.textflex.net/api/transactions/${id}`);
+    if (res.data.success) {
+      alert("Deposit deleted successfully.");
+     
+    } else {
+      alert(`Error: ${res.data.error}`);
+    }
+  } catch (error: any) {
+    console.error(error);
+    alert("Something went wrong while deleting the deposit.");
+  }
+};
+
+
 
   return (
     <div className="w-[80%]  p-4 md:ml-[100px] mt-4">
@@ -73,7 +92,7 @@ const Deposits = () => {
                 <tr key={dep.id} className={`border-t ${theme ? 'bg-[#1a1a1a]' : 'hover:bg-gray-50 text-gray-700'}  `}>
                   <td className="p-3">{dep.transaction_ref}</td>
                   <td className="p-3">{dep.user_id}</td>
-                 <td className="p-3 flex flex-col items-center ">
+                 <td className="p-3 flex flex-col items-center gap-4">
                     <span
                       className={`w-full text-center px-2 py-1 rounded-full text-xs font-medium ${
                         dep.status === "pending"
@@ -85,14 +104,22 @@ const Deposits = () => {
                     >
                       {dep.status}
                     </span>
+                   <div className="flex flex-col gap-1 items-center">
                     {dep.status !== "successful" && (
                       <button
                         onClick={() => handleMarkSuccessful(dep.id)}
-                        className=" mt-1 inline-block px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+                        className="inline-block px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700 transition"
                       >
                         Mark as Successful
                       </button>
                     )}
+                    <button
+                      onClick={() => handleDeleteDeposit(dep.id)}
+                      className="inline-block px-2 py-1 text-xs text-white bg-red-600 rounded hover:bg-red-700 transition"
+                    >
+                      Delete
+                    </button>
+                  </div>
                   </td>
 
                   <td className="p-3">
@@ -136,14 +163,23 @@ const Deposits = () => {
                 >
                   {dep.status}
                 </span>
-                 {dep.status !== "successful" && (
-                      <button
-                        onClick={() => handleMarkSuccessful(dep.id)}
-                        className=" mt-1 inline-block px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700 transition"
-                      >
-                        Mark as Successful
-                      </button>
-                    )}
+                <div className="flex flex-col gap-2 mt-1">
+                {dep.status !== "successful" && (
+                  <button
+                    onClick={() => handleMarkSuccessful(dep.id)}
+                    className="inline-block px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+                  >
+                    Mark as Successful
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDeleteDeposit(dep.id)}
+                  className="inline-block px-2 py-1 text-xs text-white bg-red-600 rounded hover:bg-red-700 transition"
+                >
+                  Delete
+                </button>
+              </div>
+
               </div>
               <div className="text-sm">
                 Amount:{" "}

@@ -6,7 +6,7 @@ import Root from './route/root'
 import PostImg from './components/postimg'
 import PostKeys from './components/postkeys'
 import { checkAuth } from './utils'
-import UpdateImage from './components/updateimage'
+
 import Login from './components/login'
 import UpdateBalance from './components/updatebalance'
 import Dashboard from './components/dashboard'
@@ -23,6 +23,7 @@ import RateEditor from './components/editrate'
 import AdminSocialLinks from './components/links'
 import SusDepo from './components/susDepo'
 import ScrollToTop from './components/scrollToTheTop'
+import ManageAds from './components/updateimage'
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
             <Route path="dashboard/:id" element={<Dashboard/>}/>
             <Route path="postimg/:id" element={<PostImg/>}/>
             <Route path="postkeys/:id" element={<PostKeys/>}/>
-            <Route path="updateimg/:id" element={<UpdateImage/>}/>
+            <Route path="updateimg/:id" element={<ManageAds/>}/>
             <Route path="showapi/:id" element={<ShowApi/>}/>  
             <Route path="showbalance/:id" element={<ShowBalance/>}/>
             <Route path="showorders/:id" element={<ShowOrders/>}/>

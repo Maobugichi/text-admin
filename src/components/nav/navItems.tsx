@@ -12,12 +12,6 @@ const NavItems:React.FC<NavProps> = ({ closeNav }) => {
             text:'Dashboard',
             link:'/dashboard/1'
         },
-        
-        {
-            icon:<Image size={17}/>,
-            text:'Post ad',
-            link:'/postimg/1'
-        },
         {
             icon:<Link2 size={17}/>,
             text:'Update ad',

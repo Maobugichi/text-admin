@@ -19,7 +19,7 @@ const Root = () => {
              setIsShow={setIsShow}
              show={isShow}
             />
-            <div className={`h-fit grid place-items-center ${theme ? 'bg-[#1a1a1a]' : 'bg-white'}`}>
+            <div className={`h-fit grid place-items-center ${theme ? 'bg-[#1a1a1a]' : 'bg-white'} overflow-hidden`}>
                 <Outlet/>
             </div>
         </main>

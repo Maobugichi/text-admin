@@ -6,10 +6,13 @@ const ShowUsers = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
 
-  const { users , theme } = myContext;
+  const { users, theme } = myContext;
   const [localUsers, setLocalUsers] = useState(users);
-  const [loadingIds, setLoadingIds] = useState<number[]>([]); // track loading per user
+  const [loadingIds, setLoadingIds] = useState<number[]>([]);
+  const [loadingDelete, setLoadingDelete] = useState<number[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const blockUser = async (email: string, id: number) => {
     setLoadingIds((prev) => [...prev, id]);
@@ -45,14 +48,36 @@ const ShowUsers = () => {
     }
   };
 
+  const deleteUser = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this user?")) return;
+    try {
+      setLoadingDelete((prev: any) => [...prev, id]);
+      const res = await axios.delete(`https://api.textflex.net/api/users/${id}`);
+      if (res) {
+        setLocalUsers((prev: any) => prev.filter((user: any) => user.id !== id));
+      } else {
+        console.error("Failed to delete user");
+      }
+    } catch (err) {
+      console.error("Error deleting user:", err);
+    } finally {
+      setLoadingDelete((prev: any) => prev.filter((item: any) => item !== id));
+    }
+  };
+
   const filteredUsers = localUsers.filter(
     (user: any) =>
       user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
   return (
-    <div className={`p-4 mt-22  ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+    <div className={`md:ml-20 p-4 mt-22 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} overflow-x-auto w-full`}>
       <h2 className="text-lg font-semibold mb-4">Users</h2>
 
       <div className="mb-4">
@@ -61,39 +86,40 @@ const ShowUsers = () => {
           placeholder="Search by username or email"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border px-3 py-2 w-full  rounded"
+          className="border px-3 py-2 w-full rounded"
         />
       </div>
 
-     
-      <div className="hidden md:block overflow-x-auto">
-        <table className="min-w-full border border-gray-300 rounded">
+      <div className="overflow-x-auto">
+        <table className="min-w-[80%] border border-gray-300 rounded">
           <thead>
-            <tr className={` text-left  ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100 text-black'}`}>
-              <th className="p-2">Username</th>
-              <th className="p-2">Email</th>
-              <th className="p-2">Blocked</th>
-              <th className="p-2">Actions</th>
+            <tr className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100 text-black'}`}>
+              <th className="p-2 text-left">id</th>
+              <th className="p-2 text-left">Username</th>
+              <th className="p-2 text-left">Email</th>
+              <th className="p-2 text-left">Blocked</th>
+              <th className="p-2 text-left">Block</th>
+              <th className="p-2 text-left">Delete</th>
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user: any) => (
+            {currentUsers.length > 0 ? (
+              currentUsers.map((user: any) => (
                 <tr key={user.email} className="border-t border-gray-200">
-                  <td className="p-2">{user.username}</td>
-                  <td className="p-2">{user.email}</td>
-                  <td className="p-2">{user.blocked ? "Yes" : "No"}</td>
+                  <td className="p-2 border">{user.id}</td>
+                  <td className="p-2 border">{user.username}</td>
+                  <td className="p-2 border">{user.email}</td>
+                  <td className="p-2 border">{user.blocked ? "Yes" : "No"}</td>
                   <td className="p-2 space-x-2">
-                    {!user.blocked && (
+                    {!user.blocked ? (
                       <button
                         disabled={loadingIds.includes(user.id)}
                         onClick={() => blockUser(user.email, user.id)}
-                        className="px-3 py-1 rounded text-white bg-red-600 hover:bg-red-700"
+                        className="px-3 py-1 rounded text-white bg-yellow-600 hover:bg-yellow-700"
                       >
                         {loadingIds.includes(user.id) ? "Processing..." : "Block"}
                       </button>
-                    )}
-                    {user.blocked && (
+                    ) : (
                       <button
                         disabled={loadingIds.includes(user.id)}
                         onClick={() => unblockUser(user.email, user.id)}
@@ -103,11 +129,20 @@ const ShowUsers = () => {
                       </button>
                     )}
                   </td>
+                  <td className="p-2 space-x-2">
+                    <button
+                      disabled={loadingDelete.includes(user.id)}
+                      onClick={() => deleteUser(user.id)}
+                      className="px-3 py-1 rounded text-white bg-red-600 hover:bg-red-700"
+                    >
+                      {loadingDelete.includes(user.id) ? "Deleting..." : "Delete"}
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-500">
+                <td colSpan={6} className="p-4 text-center text-gray-500">
                   No users found.
                 </td>
               </tr>
@@ -116,45 +151,44 @@ const ShowUsers = () => {
         </table>
       </div>
 
-      {/* Mobile stacked cards */}
-      <div className="md:hidden space-y-4">
-        {filteredUsers.length > 0 ? (
-          filteredUsers.map((user: any) => (
-            <div key={user.email} className="border rounded p-4 shadow-sm">
-              <p className="text-sm">
-                <span className="font-semibold">Username:</span> {user.username}
-              </p>
-              <p className="text-sm">
-                <span className="font-semibold">Email:</span> {user.email}
-              </p>
-              <p className="text-sm">
-                <span className="font-semibold">Blocked:</span> {user.blocked ? "Yes" : "No"}
-              </p>
-              <div className="mt-2 space-x-2">
-                {!user.blocked && (
-                  <button
-                    disabled={loadingIds.includes(user.id)}
-                    onClick={() => blockUser(user.email, user.id)}
-                    className="px-3 py-1 rounded text-white bg-red-600 hover:bg-red-700"
-                  >
-                    {loadingIds.includes(user.id) ? "Processing..." : "Block"}
-                  </button>
-                )}
-                {user.blocked && (
-                  <button
-                    disabled={loadingIds.includes(user.id)}
-                    onClick={() => unblockUser(user.email, user.id)}
-                    className="px-3 py-1 rounded text-white bg-green-600 hover:bg-green-700"
-                  >
-                    {loadingIds.includes(user.id) ? "Processing..." : "Unblock"}
-                  </button>
-                )}
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No users found.</p>
-        )}
+      <div className="flex justify-between items-center mt-4">
+        <div className="flex items-center space-x-2">
+          <label htmlFor="itemsPerPage">Show:</label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(parseInt(e.target.value));
+              setCurrentPage(1);
+            }}
+            className="border px-2 py-1 rounded"
+          >
+            {[5, 10, 20, 50].map((num) => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+          <span>users per page</span>
+        </div>
+
+        <div className="space-x-2">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="px-3 py-1 rounded border bg-gray-100 hover:bg-gray-200"
+          >
+            Prev
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="px-3 py-1 rounded border bg-gray-100 hover:bg-gray-200"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -51,7 +51,7 @@ const ShowApi = () => {
   };
 
   return (
-    <div className={`p-4 max-w-4xl mx-auto mt-20  h-[100vh] ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
+    <div className={`p-4 max-w-4xl mx-auto mt-72  h-[100vh] ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
       <h2 className="text-xl font-semibold mb-4">API Keys Management</h2>
       <table className={`min-w-full border border-gray-300 rounded overflow-hidden ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
         <thead className={`${theme ? 'bg-[#1a1a1a]' : 'bg-gray-100 text-gray-700'}  font-semibold`}>

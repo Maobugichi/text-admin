@@ -18,7 +18,6 @@ const myContext = useContext(ShowContext)
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
       const depo = response.data.totalDepo[0].total_successful_deposit
       const apiGains = response.data.totalApiGains[0].amount_in_dollars
-      
       const items = [
         {
           link:'/showbalance/1',
@@ -33,7 +32,7 @@ const myContext = useContext(ShowContext)
         },
         {
           link:'/moneyout/1',
-          label: "Total Out",
+          label: "Money Out",
           value: `${(Number(values[1])).toLocaleString('en-NG', {
                         style: 'currency',
                         currency: 'NGN',
@@ -57,7 +56,7 @@ const myContext = useContext(ShowContext)
         },
         {
           link:'/totaldeposit/1',
-          label: "Total Deposit",
+          label: "Money In",
           value: `${(Number(depo)).toLocaleString('en-NG', {
                         style: 'currency',
                         currency: 'NGN',
@@ -92,8 +91,9 @@ const myContext = useContext(ShowContext)
      
     return () => clearInterval(interval)
     },[])
+
     return(
-        <div className={` w-[75%]  mt-32 h-[130vh] md:h-[80vh] md:ml-72  ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-white border-[#5252] text-black'}`}>
+        <div className={` w-[90%] md:w-[75%]  mt-32 h-[130vh] md:h-[90vh] md:ml-72 grid rounded-md shadow-md  ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-blue-100 p-5 border-[#5252] text-black'}`}>
             <div className=" w-full items-center grid grid-cols-1 md:grid-cols-3   gap-5">
                   {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
                         <Blocks
