@@ -93,9 +93,11 @@ const myContext = useContext(ShowContext)
     },[])
 
     return(
-        <div className={` w-[90%] md:w-[75%]  mt-32 h-[130vh] md:h-[90vh] md:ml-72 grid rounded-md shadow-md  ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-blue-100 p-5 border-[#5252] text-black'}`}>
-            <div className=" w-full items-center grid grid-cols-1 md:grid-cols-3   gap-5">
-                  {dashboardItems.length >= 1 ? dashboardItems.map((items:any) => (
+        <div className={` w-[90%] md:w-[75%]  mt-20 h-[130vh] md:h-[90vh] md:ml-72 grid  rounded-md shadow-md  ${theme ? 'bg-[#2E2E2E] border-blue-100 text-white' : 'bg-[#F3F4F6]  border-[#5252] text-black'} p-5`}>
+           
+                  {dashboardItems.length >= 1 ?
+                   <div className=" w-full items-center grid grid-cols-1 md:grid-cols-3 gap-5">
+                   { dashboardItems.map((items:any) => (
                         <Blocks
                          icon={items.icon}
                          head={items.value}
@@ -104,9 +106,10 @@ const myContext = useContext(ShowContext)
                          theme={theme}
                          className={items.className}
                         />
-                    )) :  <img className=" top-40 md:left-[500px] w-20 md:absolute" src={dualRing}/>
+                    )) }
+                    </div> :  <div className="w-full h-1/2 grid place-items-center "><img className=" w-20 " src={dualRing}/></div>
                     } 
-            </div>
+            
         </div>
     )
 }

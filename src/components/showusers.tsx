@@ -77,7 +77,7 @@ const ShowUsers = () => {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   return (
-    <div className={`md:ml-20 p-4 mt-22 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} overflow-x-auto w-full`}>
+    <div className={`md:ml-20 p-4 mt-22 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} overflow-x-auto w-full md:w-[75%] md:ml-72`}>
       <h2 className="text-lg font-semibold mb-4">Users</h2>
 
       <div className="mb-4">
@@ -106,11 +106,11 @@ const ShowUsers = () => {
             {currentUsers.length > 0 ? (
               currentUsers.map((user: any) => (
                 <tr key={user.email} className="border-t border-gray-200">
-                  <td className="p-2 border">{user.id}</td>
-                  <td className="p-2 border">{user.username}</td>
-                  <td className="p-2 border">{user.email}</td>
-                  <td className="p-2 border">{user.blocked ? "Yes" : "No"}</td>
-                  <td className="p-2 space-x-2">
+                  <td className="p-2 border border-solid">{user.id}</td>
+                  <td className="p-2 border border-solid">{user.username}</td>
+                  <td className="p-2 border border-solid">{user.email}</td>
+                  <td className="p-2 border border-solid">{user.blocked ? "Yes" : "No"}</td>
+                  <td className="p-2 border border-solid space-x-2">
                     {!user.blocked ? (
                       <button
                         disabled={loadingIds.includes(user.id)}
@@ -129,7 +129,7 @@ const ShowUsers = () => {
                       </button>
                     )}
                   </td>
-                  <td className="p-2 space-x-2">
+                  <td className="p-2 space-x-2 border border-solid">
                     <button
                       disabled={loadingDelete.includes(user.id)}
                       onClick={() => deleteUser(user.id)}
@@ -142,7 +142,7 @@ const ShowUsers = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="p-4 text-center text-gray-500">
+                <td colSpan={6} className="p-4 text-center border border-solid text-gray-500">
                   No users found.
                 </td>
               </tr>

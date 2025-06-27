@@ -159,8 +159,8 @@ const ManageAds = () => {
           <tbody>
             {currentAds.map((ad) => (
               <tr key={ad.id} className="border-t">
-                <td className="p-3">{ad.id}</td>
-                <td className="p-3">
+                <td className="p-3 border border-solid">{ad.id}</td>
+                <td className="p-3 border border-solid">
                   {editingAdId === ad.id ? (
                     <input
                       type="text"
@@ -173,7 +173,7 @@ const ManageAds = () => {
                     ad.content
                   )}
                 </td>
-                <td className="p-3">
+                <td className="p-3 border border-solid">
                   {editingAdId === ad.id ? (
                     <div>
                       <input type="file" accept="image/*" onChange={handleFileChange} className="mb-1" />
@@ -183,7 +183,7 @@ const ManageAds = () => {
                     <img src={ad.url} alt="Ad" className="w-20 h-auto" />
                   )}
                 </td>
-                <td className="p-3">
+                <td className="p-3 border border-solid">
                   {editingAdId === ad.id ? (
                     <input
                       type="text"
@@ -196,7 +196,7 @@ const ManageAds = () => {
                     <a href={ad.link} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">{ad.link}</a>
                   )}
                 </td>
-                <td className="p-3 space-x-2">
+                <td className="p-3 space-x-2 border border-solid">
                   {editingAdId === ad.id ? (
                     <>
                       <button onClick={submitUpdate} className="px-2 py-1 bg-green-600 text-white rounded">Save</button>

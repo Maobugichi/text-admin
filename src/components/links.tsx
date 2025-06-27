@@ -82,7 +82,7 @@ const AdminSocialLinks = () => {
   };
 
   return (
-    <div className={`w-full md:w-[70%]  md:ml-72 h-[100vh] md:max-w-4xl mx-auto p-6 mt-20 ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
+    <div className={`w-full md:w-[70%]  md:ml-72 h-fix md:max-w-4xl mx-auto overflow-x-auto p-6 mt-20 ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
       <h1 className="text-2xl font-bold mb-6">Manage Social Links</h1>
 
 
@@ -137,11 +137,11 @@ const AdminSocialLinks = () => {
         </div>
       </form>
 
-      <div className="hidden md:block overflow-x-auto">
+      <div className="md:block overflow-x-auto">
         <table className="min-w-full border border-gray-300 rounded">
           <thead>
             <tr className={`${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-gray-100 text-black'} text-left`}>
-              <th className="p-2 border-b">Social Platform</th>
+              <th className="p-2 border-b ">Social Platform</th>
               <th className="p-2 border-b">Link</th>
               <th className="p-2 border-b">Description</th>
               <th className="p-2 border-b">Last Updated</th>
@@ -151,15 +151,15 @@ const AdminSocialLinks = () => {
           <tbody>
             {links.length === 0 ? (
               <tr>
-                <td colSpan={5} className="p-4 text-center text-gray-500">
+                <td colSpan={5} className="p-4 text-center border border-solid text-gray-500">
                   No links found.
                 </td>
               </tr>
             ) : (
               links.map((link) => (
                 <tr key={link.id} className="border-t hover:bg-gray-50">
-                  <td className="p-2">{link.socials}</td>
-                  <td className="p-2">
+                  <td className="p-2 border border-solid">{link.socials}</td>
+                  <td className="p-2 border border-solid">
                     <a
                       href={link.link}
                       target="_blank"
@@ -169,13 +169,13 @@ const AdminSocialLinks = () => {
                       {link.link}
                     </a>
                   </td>
-                  <td className="p-2">{link.description || "-"}</td>
-                  <td className="p-2">
+                  <td className="p-2 border border-solid">{link.description || "-"}</td>
+                  <td className="p-2 border border-solid">
                     {link.updated_at
                       ? new Date(link.updated_at).toLocaleString()
                       : "-"}
                   </td>
-                  <td className="p-2">
+                  <td className="p-2 border border-solid">
                     <button
                       onClick={() => startEdit(link)}
                       className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
@@ -189,44 +189,7 @@ const AdminSocialLinks = () => {
           </tbody>
         </table>
       </div>
-      <div className="md:hidden space-y-4">
-        {links.length === 0 ? (
-          <div className="text-center text-gray-500">No links found.</div>
-        ) : (
-          links.map((link) => (
-            <div
-              key={link.id}
-              className={`border rounded p-4 shadow-sm ${theme ? 'bg-[#1a1a1a] text-white border-white' : 'bg-gray-100'}`}
-            >
-              <p><span className="font-semibold">Social:</span> {link.socials}</p>
-              <p className="break-all">
-                <span className="font-semibold">Link:</span>{" "}
-                <a
-                  href={link.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 underline"
-                >
-                  {link.link}
-                </a>
-              </p>
-              <p><span className="font-semibold">Description:</span> {link.description || "-"}</p>
-              <p>
-                <span className="font-semibold">Last Updated:</span>{" "}
-                {link.updated_at
-                  ? new Date(link.updated_at).toLocaleString()
-                  : "-"}
-              </p>
-              <button
-                onClick={() => startEdit(link)}
-                className="mt-2 bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
-              >
-                Edit
-              </button>
-            </div>
-          ))
-        )}
-      </div>
+      
     </div>
   );
 };

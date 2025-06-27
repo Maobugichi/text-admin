@@ -43,7 +43,7 @@ const ShowBalance = () => {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   return (
-    <div className={`p-4 mt-22 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} overflow-scroll w-full`}>
+    <div className={`p-4 mt-22 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} overflow-scroll w-full md:w-[75%] md:ml-72`}>
       <h2 className="text-lg font-semibold mb-4">User Balances</h2>
 
       <div className="mb-4">
@@ -74,10 +74,10 @@ const ShowBalance = () => {
           <tbody>
             {currentUsers.map((user: any) => (
               <tr key={user.email} className="border-t border-gray-200">
-                <td className="p-2 whitespace-nowrap">{user.username}</td>
-                <td className="p-2 whitespace-nowrap">{user.email}</td>
-                <td className="p-2 whitespace-nowrap">₦{parseFloat(user.balance).toFixed(2)}</td>
-                <td className="p-2 whitespace-nowrap">
+                <td className="p-2 whitespace-nowrap border border-solid">{user.username}</td>
+                <td className="p-2 whitespace-nowrap border border-solid">{user.email}</td>
+                <td className="p-2 whitespace-nowrap border border-solid">₦{parseFloat(user.balance).toFixed(2)}</td>
+                <td className="p-2 whitespace-nowrap border border-solid">
                   <input
                     type="number"
                     className="border px-2 py-1 w-24"
@@ -86,7 +86,7 @@ const ShowBalance = () => {
                     onChange={(e) => handleChange(user.id, e.target.value)}
                   />
                 </td>
-                <td className="p-2 whitespace-nowrap">
+                <td className="p-2 whitespace-nowrap border border-solid">
                   <button
                     onClick={() => addToBalance(user.id)}
                     className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"

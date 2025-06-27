@@ -38,7 +38,7 @@ const ShowOrders = () => {
   }
 
   return (
-    <div className={`p-4 lg:ml-[250px] w-full mt-20 grid gap-3 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+    <div className={`p-4 lg:ml-[250px] w-full md:w-[75%] mt-20 grid gap-3 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
       <h2 className="text-lg font-semibold mb-4">User Orders</h2>
 
       <input
@@ -67,20 +67,20 @@ const ShowOrders = () => {
           <tbody>
             {currentOrders.map((order: any, idx: number) => (
               <tr key={idx} className="border-t">
-                <td className="p-3 whitespace-nowrap">{order.username}</td>
-                <td className="p-3 whitespace-nowrap">{order.email}</td>
-                <td className="p-3 whitespace-nowrap">{order.purchased_number}</td>
-                <td className="p-3 whitespace-nowrap">{order.order_date}</td>
-                <td className="p-3 whitespace-nowrap">{order.status}</td>
-                <td className="p-3 whitespace-nowrap">{order.country}</td>
-                <td className="p-3 whitespace-nowrap">{order.service}</td>
-                <td className="p-3 whitespace-nowrap">{order.provider}</td>
-                <td className="p-3 whitespace-nowrap">₦{order.amount}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.username}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.email}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.purchased_number}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.order_date}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.status}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.country}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.service}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">{order.provider}</td>
+                <td className="p-3 whitespace-nowrap border border-solid">₦{order.amount}</td>
               </tr>
             ))}
             {currentOrders.length === 0 && (
               <tr>
-                <td colSpan={9} className="p-4 text-center text-gray-500">
+                <td colSpan={9} className="p-4 border border-solid text-center text-gray-500">
                   No matching orders found.
                 </td>
               </tr>

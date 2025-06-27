@@ -75,7 +75,7 @@ const handleDeleteDeposit = async (id: number) => {
       </div>
 
       
-      <div className={`w-[70%] hidden md:block overflow-auto rounded-lg border border-gray-200  shadow ml-[200px] ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+      <div className={`w-[70%] hidden md:block overflow-auto rounded-lg border border-gray-200  shadow ml-[200px]  ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
         <table className="min-w-full text-sm text-left">
           <thead className={`${theme ? 'bg-[#1a1a1a]' : 'bg-gray-100 text-gray-700'}  font-semibold`}>
             <tr>
@@ -90,9 +90,9 @@ const handleDeleteDeposit = async (id: number) => {
             {filteredDeposits.length > 0 ? (
               filteredDeposits.map((dep: any) => (
                 <tr key={dep.id} className={`border-t ${theme ? 'bg-[#1a1a1a]' : 'hover:bg-gray-50 text-gray-700'}  `}>
-                  <td className="p-3">{dep.transaction_ref}</td>
-                  <td className="p-3">{dep.user_id}</td>
-                 <td className="p-3 flex flex-col items-center gap-4">
+                  <td className="p-3 border border-solid">{dep.transaction_ref}</td>
+                  <td className="p-3 border border-solid">{dep.user_id}</td>
+                 <td className="p-3 flex flex-col items-center gap-4 border border-solid">
                     <span
                       className={`w-full text-center px-2 py-1 rounded-full text-xs font-medium ${
                         dep.status === "pending"
@@ -122,7 +122,7 @@ const handleDeleteDeposit = async (id: number) => {
                   </div>
                   </td>
 
-                  <td className="p-3">
+                  <td className="p-3 border border-solid">
                     {dep.amount ? `₦${parseFloat(dep.amount).toLocaleString()}` : "-"}
                   </td>
                   <td className="p-3">{formatDate(dep.created_at)}</td>
@@ -130,7 +130,7 @@ const handleDeleteDeposit = async (id: number) => {
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="p-4 text-center text-gray-500">
+                <td colSpan={5} className="p-4 border border-solid text-center text-gray-500">
                   No deposits found.
                 </td>
               </tr>

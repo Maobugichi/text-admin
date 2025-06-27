@@ -65,24 +65,24 @@ const SusDepo = () => {
               currentDeposits.map((txn: any) => (
                 <tr
                   key={txn.id}
-                  className={`border-t ${theme ? "border-white hover:bg-[#222]" : "hover:bg-gray-50"}`}
+                  className={`border-t  ${theme ? "border-white hover:bg-[#222]" : "hover:bg-gray-50"}`}
                 >
-                  <td className="p-3 whitespace-nowrap">{txn.transaction_ref}</td>
-                  <td className="p-3 whitespace-nowrap">{txn.user_id}</td>
-                  <td className="p-3 whitespace-nowrap">
+                  <td className="p-3 whitespace-nowrap border border-solid">{txn.transaction_ref}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">{txn.user_id}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">
                     <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
                       {txn.status}
                     </span>
                   </td>
-                  <td className="p-3 whitespace-nowrap">₦{parseFloat(txn.amount).toLocaleString()}</td>
-                  <td className="p-3 whitespace-nowrap capitalize">{txn.source}</td>
-                  <td className="p-3 whitespace-nowrap capitalize">{txn.note}</td>
-                  <td className="p-3 whitespace-nowrap">{formatDate(txn.created_at)}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">₦{parseFloat(txn.amount).toLocaleString()}</td>
+                  <td className="p-3 whitespace-nowrap capitalize border border-solid">{txn.source}</td>
+                  <td className="p-3 whitespace-nowrap capitalize border border-solid">{txn.note}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">{formatDate(txn.created_at)}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={7} className="p-4 text-center text-gray-500">
+                <td colSpan={7} className="p-4 text-center border border-solid text-gray-500">
                   No transactions found.
                 </td>
               </tr>

@@ -25,7 +25,7 @@ const MoneyOut = () => {
   const totalPages = Math.ceil(filteredMoneyOut.length / itemsPerPage);
 
   return (
-    <div className={`p-4 mt-20 md:ml-[250px] w-full overflow-x-auto`}>
+    <div className={`p-4 mt-20 md:ml-[250px] w-full md:w-[75%] overflow-x-auto`}>
       <div className="mb-4">
         <input
           type="text"
@@ -59,9 +59,9 @@ const MoneyOut = () => {
                   key={item.id}
                   className={`border-t ${theme ? "border-white hover:bg-[#222]" : "hover:bg-gray-50"}`}
                 >
-                  <td className="p-3 whitespace-nowrap">{item.user_id}</td>
-                  <td className="p-3 whitespace-nowrap">{item.note}</td>
-                  <td className="p-3 whitespace-nowrap">
+                  <td className="p-3 whitespace-nowrap border border-solid">{item.user_id}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">{item.note}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">
                     ₦{parseFloat(item.amount).toLocaleString("en-NG", { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
