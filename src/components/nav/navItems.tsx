@@ -1,6 +1,7 @@
 import {   Link2, Settings , LayoutDashboardIcon,Bell , Download, Mail, LineChart  } from 'lucide-react';
 import List from '../listItem';
 import { Link } from 'react-router-dom';
+import { Tag } from 'lucide-react';
 interface NavProps {
     closeNav?: () => void
 }
@@ -46,6 +47,11 @@ const NavItems:React.FC<NavProps> = ({ closeNav }) => {
             icon:<LineChart size={17}/>,
             text:'rate',
             link:'/rate/1'
+        },
+        {
+            icon:<Tag size={17}/>,
+            text:'costs',
+            link:'/costs/1'
         }
        
        

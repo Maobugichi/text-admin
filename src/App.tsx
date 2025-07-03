@@ -24,6 +24,7 @@ import AdminSocialLinks from './components/links'
 import SusDepo from './components/susDepo'
 import ScrollToTop from './components/scrollToTheTop'
 import ManageAds from './components/updateimage'
+import AdminCostsTable from './components/admincost'
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
              <Route path="totaldeposit/:id" element={<SusDepo/>}/>
             <Route path="updatebalance/:id" element={<UpdateBalance/>}/>
             <Route path="moneyout/:id" element={<MoneyOut/>}/>
+            <Route path="costs/:id" element={<AdminCostsTable/>}/>
           </Route>
       </Routes>
     </HashRouter>
