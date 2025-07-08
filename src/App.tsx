@@ -5,8 +5,6 @@ import { ContextProvider } from './components/context'
 import Root from './route/root'
 import PostImg from './components/postimg'
 import PostKeys from './components/postkeys'
-import { checkAuth } from './utils'
-
 import Login from './components/login'
 import UpdateBalance from './components/updatebalance'
 import Dashboard from './components/dashboard'
@@ -35,7 +33,7 @@ function App() {
          <Route path="auth/:1" element={<Auth />} /> 
           <Route path="login/:1" element={<Login />} /> 
           <Route path="/" element={<Root />}>
-            <Route index element={<Navigate to={checkAuth() ?  "dashboard/1" : "auth/1" } />} />
+            <Route index element={<Navigate to={ "auth/1" } />} />
             <Route path="dashboard/:id" element={<Dashboard/>}/>
             <Route path="postimg/:id" element={<PostImg/>}/>
             <Route path="postkeys/:id" element={<PostKeys/>}/>

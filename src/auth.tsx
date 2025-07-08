@@ -12,8 +12,6 @@ const Auth = () => {
      const { setUserData } = myContext;
      const [ data , setData ] = useState<any>({
         email:'',
-        username:'',
-        password:''
     });
     const [ show , setShow ] = useState<boolean>(false);
     const [ err , setErr ] = useState<string>('');
@@ -39,8 +37,9 @@ const Auth = () => {
         <Form
           onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/adminAuth', method:"POST", 
             onSuccess: (res) => {
+                console.log(res.data)
                 setUserData(res.data)
-                navigate('/postkeys/1')
+                navigate('dashboard/1')
             },
             onError: (err) => {
                     console.log(err.response.data.message)
@@ -49,8 +48,6 @@ const Auth = () => {
                     setShowLoader(false)
                     setData({
                         email:'',
-                        username:'',
-                        password:''
                     })
             },
             })}}

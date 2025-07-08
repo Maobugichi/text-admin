@@ -25,34 +25,24 @@ interface UserContextType {
 const ShowContext =  createContext<UserContextType | undefined>(undefined);
 
 const  ContextProvider:React.FC<ContextProps> = ({ children }) => {
-    const [userData, setUserData] = useState<any>(() => {
-        const saved = localStorage.getItem("userData");
-        return saved ? JSON.parse(saved) : {};
-       });
-      const [users, setUsers] = useState<any>(() => {
-        const saved = localStorage.getItem("users");
-        return saved ? JSON.parse(saved) : [];
-      });
-       const [api, setApi] = useState<any>(() => {
-        const saved = localStorage.getItem("api");
-        return saved ? JSON.parse(saved) : [];
-      });
-      const [ moneyOut , setMoneyOut ] = useState<any>(() => {
-        const saved = localStorage.getItem("moneyout");
-        return saved ? JSON.parse(saved) : [];
-      })
-      const [ deposit , setDeposit ] = useState<any>(() => {
-        const saved = localStorage.getItem("deposit");
-        return saved ? JSON.parse(saved) : [];
-      })
-      const [ orders , setOrders ] = useState<any>(() => {
-        const saved = localStorage.getItem("orders");
-        return saved ? JSON.parse(saved) : [];
-      })
-      const [ totalDeposit , setTotalDeposit ] = useState<any>(() => {
-        const saved = localStorage.getItem("totaldeposit");
-        return saved ? JSON.parse(saved) : [];
-      })
+      const safeParse = (key: string, fallback: any) => {
+      const saved = localStorage.getItem(key);
+      try {
+        return saved && saved !== "undefined" ? JSON.parse(saved) : fallback;
+      } catch (e) {
+        console.warn(`Error parsing ${key}:`, e);
+        return fallback;
+      }
+    };
+
+    const [userData, setUserData] = useState<any>(() => safeParse("userData", {}));
+    const [users, setUsers] = useState<any>(() => safeParse("users", []));
+    const [api, setApi] = useState<any>(() => safeParse("api", []));
+    const [moneyOut, setMoneyOut] = useState<any>(() => safeParse("moneyout", []));
+    const [deposit, setDeposit] = useState<any>(() => safeParse("deposit", []));
+    const [orders, setOrders] = useState<any>(() => safeParse("orders", []));
+    const [totalDeposit, setTotalDeposit] = useState<any>(() => safeParse("totaldeposit", []));
+
       const [ theme , setTheme ] = useState<boolean>(false)  
       useEffect(() => {
          localStorage.removeItem('users')

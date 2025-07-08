@@ -14,7 +14,6 @@ const Login = () => {
     const { setUserData } = myContext;
      const [ data , setData ] = useState<any>({
             email:'',
-            password:''
      });
     const [ showLoader , setShowLoader ] = useState<boolean>(false)
     const [ show , setShow ] = useState<boolean>(false);
@@ -40,7 +39,7 @@ const Login = () => {
             onSuccess: (res) => {
                 console.log('Form success:', res);
                 setUserData(res.data)
-                navigate('/')
+                navigate('/dashboard/1')
             },
             onError: (err) => {
                 console.log('Form error:', err);
@@ -49,7 +48,6 @@ const Login = () => {
                  setShowLoader(false)
                  setData({
                   email:'',
-                  password:''
                 })
             },
             })}}
