@@ -28,7 +28,7 @@ const Auth = () => {
         }       
     },[show])
     return(
-      <div className="h-[100vh] grid place-items-center relative overflow-hidden">
+      <div className="h-screen grid place-items-center relative overflow-hidden">
        <Toast
         show={show}
         errorMssg={err}
@@ -39,16 +39,14 @@ const Auth = () => {
             onSuccess: (res) => {
                 console.log(res.data)
                 setUserData(res.data)
-                navigate('dashboard/1')
+                navigate('/dashboard/1')
             },
             onError: (err) => {
                     console.log(err.response.data.message)
                     setErr(err?.response?.data?.message || err.response.data)
                     setShow(true)
                     setShowLoader(false)
-                    setData({
-                        email:'',
-                    })
+                   
             },
             })}}
          header="Enter Your Details"

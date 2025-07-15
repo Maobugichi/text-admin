@@ -28,7 +28,7 @@ const Login = () => {
             }       
         },[show])
     return(
-       <div className="h-[100vh] grid place-items-center relative">
+       <div className=" h-screen grid place-items-center relative">
        <Toast
         show={show}
         errorMssg={err}
@@ -46,9 +46,6 @@ const Login = () => {
                  setErr(err?.response?.data?.message || err.response.data)
                  setShow(true)
                  setShowLoader(false)
-                 setData({
-                  email:'',
-                })
             },
             })}}
          header="Enter Your details to login"
