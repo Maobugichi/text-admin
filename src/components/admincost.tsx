@@ -54,7 +54,7 @@ const AdminCostsTable = () => {
   };
 
   return (
-    <div className="p-4 overflow-auto w-[90%] mt-20">
+    <div className="p-4 overflow-auto md:w-[50%] w-[90%] mt-20">
 
       <h2 className="text-xl font-bold mb-4">Cost Management</h2>
       <table className="min-w-full table-auto  border-collapse border border-gray-300">

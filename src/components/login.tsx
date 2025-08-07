@@ -7,6 +7,7 @@ import { handleChange , handleFormSubmit } from "../utils";
 import Button from "./button";
 import Toast from "./toast";
 
+
 const Login = () => {
     const navigate = useNavigate()
     const myContext = useContext(ShowContext)
@@ -28,12 +29,12 @@ const Login = () => {
             }       
         },[show])
     return(
-       <div className=" h-screen grid place-items-center relative">
-       <Toast
-        show={show}
-        errorMssg={err}
-        color="bg-red-200 border-red-700"
-       />  
+       <div className=" h-screen grid  place-items-center relative">
+        <Toast
+            show={show}
+            errorMssg={err ? err : "failed"}
+            color="bg-red-200 border-red-700"
+        />  
         <Form
           onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/admin-login', method:"POST", 
             onSuccess: (res) => {
@@ -48,9 +49,10 @@ const Login = () => {
                  setShowLoader(false)
             },
             })}}
-         header="Enter Your details to login"
-         height="h-[350px]"
-        >
+           header="Enter Your details to login"
+           height="h-[350px]"
+        > 
+           
             <Input placeholder="enter email" value={data.email} name="email"  handleChange={(e) => handleChange(e, setData)} type="email"/>
             <Input placeholder="enter password" value={data.password} name="password"  handleChange={(e) => handleChange(e, setData)} type="password"/>
             <Button

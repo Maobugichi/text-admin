@@ -17,8 +17,8 @@ const Dashboard = () => {
       const response = await axios.get('https://api.textflex.net/api/admin-dash')
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
       const depo = response.data.totalDepo[0].total_successful_deposit
-      const apiGains = response.data.totalApiGains[0].amount_in_dollars
-    
+      const apiGains = response.data.totalApiGains
+      console.log(response.data)
       const items = [
         {
           link:'/showbalance/1',
@@ -68,11 +68,11 @@ const Dashboard = () => {
         {
           link:'',
           label: "API gain",
-          value: `${(Number(apiGains)).toLocaleString('en-US', {
+          value: `${(Number(apiGains)).toLocaleString('en-NG', {
                         style: 'currency',
-                        currency: 'USD',
+                        currency: 'NGN',
                         minimumFractionDigits: 2
-                      }).replace('US', '').trim()}`,
+                      }).replace('NGN', '').trim()}`,
           icon: <RocketIcon size={30} className="text-amber-600" />,
         },
        ];
@@ -94,7 +94,7 @@ const Dashboard = () => {
     },[])
 
     return(
-        <div className={` w-[90%] md:w-[75%]  mt-20 h-[130vh] md:h-[90vh] md:ml-72 grid  rounded-md shadow-md  ${theme ? 'bg-[#2E2E2E] border-blue-100 text-white' : 'bg-[#F3F4F6]  border-[#5252] text-black'} p-5`}>
+        <div className={` w-[90%] md:w-[75%]  mt-20 h-fit  border border-[#172A3A] md:ml-72 grid  rounded-md shadow-md  ${theme ? 'bg-[#2E2E2E] border-blue-100 text-white' : 'bg-[#F3F4F6]  border-[#5252] text-black'} p-5`}>
                   {dashboardItems.length >= 1 ?
                    <div className=" w-full items-center grid grid-cols-1 md:grid-cols-3 gap-5">
                    { dashboardItems.map((items:any) => (

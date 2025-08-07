@@ -19,21 +19,21 @@ const Deposits = () => {
   );
 
   const handleMarkSuccessful = async (id: number) => {
-  try {
-    const res = await axios.patch(`https://api.textflex.net/api/transactions/${id}/status`, {
-      newStatus: "successful",
-    });
+    try {
+      const res = await axios.patch(`https://api.textflex.net/api/transactions/${id}/status`, {
+        newStatus: "successful",
+      });
 
-    if (res.data.success) {
-      alert("Transaction marked as successful and user credited.");
-      
-    } else {
-      alert(`Error: ${res.data.error}`);
+      if (res.data.success) {
+        alert("Transaction marked as successful and user credited.");
+        
+      } else {
+        alert(`Error: ${res.data.error}`);
+      }
+    } catch (error: any) {
+      console.error(error);
+      alert("Something went wrong while updating the transaction.");
     }
-  } catch (error: any) {
-    console.error(error);
-    alert("Something went wrong while updating the transaction.");
-  }
 };
 
 const handleDeleteDeposit = async (id: number) => {

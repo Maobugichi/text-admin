@@ -15,10 +15,10 @@ const Blocks:React.FC<BlocksProp> = ({ icon , head , extra , link , theme , clas
    
     return(
         <Link className={`${className}  break-inside-avoid h-32 `} to={link}>
-             <div className={` shadow-md w-full font-light border-solid border border-gray-700  h-full flex items-center gap-4 p-4 rounded-md ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-[#EEF4FD] border-[#5252] text-black'}`}>
+             <div className={` shadow-md w-full font-light border-solid border border-gray-700  h-full flex items-center gap-4 p-4 rounded-md ${theme ? 'bg-[#191919] border-blue-100 text-white' : 'bg-[#172A3A] border-[#5252] text-white '}`}>
               {icon}
-            <div className="grid gap-1">
-                <p className="text-lg font-semibold">{head}</p>
+            <div className="grid ">
+                <p className="text-2xl font-semibold">{head}</p>
                 <span>{extra}</span>
             </div>
             </div>

@@ -47,14 +47,14 @@ const EmailForm = () => {
     <form className={` w-[90%] md:w-[70%] md:ml-[200px] h-fit min-h-[100vh] mt-[150px] md:mt-20 ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`} onSubmit={handleSubmit}>
      <div className="flex gap-2 flex-col">
         <input
-        className={`border h-10 border-solid ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
+        className={`border h-10 border-solid p-3 ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
         type="text"
         placeholder="Subject"
         value={subject}
         onChange={e => setSubject(e.target.value)}
       />
       <textarea
-         className={`border border-solid h-auto min-h-20  ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
+         className={`border p-3 border-solid h-auto min-h-20  ${theme ? 'placeholder:text-white' : 'placeholder:text-black'}`}
          placeholder="Message"
          value={content}
          onChange={e => setContent(e.target.value)}

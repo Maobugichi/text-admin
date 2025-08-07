@@ -31,13 +31,12 @@ const Auth = () => {
       <div className="h-screen grid place-items-center relative overflow-hidden">
        <Toast
         show={show}
-        errorMssg={err}
+        errorMssg={err ? err : 'invalid'}
         color="bg-red-200 border-red-700"
        /> 
         <Form
           onSubmit={(e) => { handleFormSubmit({e,data,setShowLoader,setData,endpoint: 'api/adminAuth', method:"POST", 
             onSuccess: (res) => {
-                console.log(res.data)
                 setUserData(res.data)
                 navigate('/dashboard/1')
             },
@@ -50,7 +49,7 @@ const Auth = () => {
             },
             })}}
          header="Enter Your Details"
-         height="h-[370px] pt-5"
+         height="h-fit pt-5"
         >
           
             <Input placeholder="enter email" value={data.email} name="email" handleChange={(e) => handleChange(e, setData)} type="email"/>

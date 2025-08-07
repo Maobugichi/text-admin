@@ -5,15 +5,10 @@ import axios from "axios";
 const ShowApi = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
-
   const { api , theme } = myContext;
-
   const [data, setData] = useState<any[]>([]);
-
-  
   const [editValues, setEditValues] = useState<{ [id: number]: string }>({});
 
-  
   useEffect(() => {
     if (api && Array.isArray(api)) {
       setData(api);
@@ -36,7 +31,6 @@ const ShowApi = () => {
       alert("Key cannot be empty");
       return;
     }
-
     try {
       const res = await axios.put(`https://api.textflex.net/api/update-key/${id}`, { key: newKey });
       // Update local data to reflect new key
@@ -51,7 +45,7 @@ const ShowApi = () => {
   };
 
   return (
-    <div className={`p-4 max-w-4xl mx-auto mt-72  h-[100vh] ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
+    <div className={`p-4 max-w-4xl mx-auto md:mt-20 mt-72  h-[100vh] ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
       <h2 className="text-xl font-semibold mb-4">API Keys Management</h2>
       <table className={`min-w-full border border-gray-300 rounded overflow-hidden ${theme ? 'bg-[#1a1a1a] border-white text-white' : 'bg-white text-black'}`}>
         <thead className={`${theme ? 'bg-[#1a1a1a]' : 'bg-gray-100 text-gray-700'}  font-semibold`}>
