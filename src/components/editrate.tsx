@@ -5,6 +5,8 @@ import { ShowContext } from "./context";
 interface Rate {
   id: number;
   rate: string | number;
+  cryptomin: number;
+  squadmin: number;
 }
 
 const RateEditor: React.FC = () => {
@@ -13,46 +15,59 @@ const RateEditor: React.FC = () => {
       throw new Error("ShowContext must be used within a ContextProvider");
     }
     const { theme } = myContext;
-  const [rates, setRates] = useState<Rate[]>([]);
-  const [editId, setEditId] = useState<number | null>(null);
-  const [newRate, setNewRate] = useState<string | number>("");
+    const [formValues, setFormValues] = useState<Partial<Rate>>({});
+    const [editId, setEditId] = useState<number | null>(null);
+    const [rates, setRates] = useState<Rate[]>([]);
 
-  useEffect(() => {
-    fetchRates();
-  }, []);
+
+    useEffect(() => {
+      fetchRates();
+    }, []);
 
   const fetchRates = async () => {
     const { data } = await axios.get<Rate[]>("https://api.textflex.net/api/rates");
+   
     setRates(data);
   };
 
-  const startEdit = (rate: Rate) => {
-    setEditId(rate.id);
-    setNewRate(rate.rate);
-  };
-
+const startEdit = (rate: Rate) => {
+  setEditId(rate.id);
+  setFormValues({
+    rate: rate.rate,
+    cryptomin: rate.cryptomin,
+    squadmin: rate.squadmin,
+  });
+};
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewRate(e.target.value);
-  };
-
-  console.log('hello')
-  const saveEdit = async (id: number) => {
-    try {
-      await axios.put(`https://api.textflex.net/api/rates/${id}`, { rate: parseFloat(newRate as string) });
-      await fetchRates();
-      setEditId(null);
-    } catch (err) {
-      console.error("Update failed", err);
-    }
-  };
+  const { name, value } = e.target;
+  setFormValues((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+};
+const saveEdit = async (id: number) => {
+  try {
+    await axios.put(`https://api.textflex.net/api/rates/${id}`, {
+      rate: parseFloat(formValues.rate as any),
+      min_crypto: parseFloat(formValues.cryptomin as any),
+      min_naira: parseFloat(formValues.squadmin as any),
+    });
+    await fetchRates();
+    setEditId(null);
+  } catch (err) {
+    console.error("Update failed", err);
+  }
+};
 
   return (
-    <div className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} h-[100vh] w-[70%] mt-22 md:ml-42`}>
-    <table className={`md:w-[65%]  w-[90%]  border border-collapse mt-24 `}>
+    <div className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} h-[100vh] w-[95%] mt-22 md:ml-42 overflow-visible`}>
+     <table className="md:w-[65%] w-[90%] mx-auto border border-collapse mt-24">
       <thead>
-        <tr className={`${theme ? 'bg-[#1a1a1a] text-white' : 'bg-gray-200 text-black'}`}>
+        <tr>
           <th className="border p-2">ID</th>
           <th className="border p-2">Rate</th>
+          <th className="border p-2">Min Crypto</th>
+          <th className="border p-2">Min Naira</th>
           <th className="border p-2">Action</th>
         </tr>
       </thead>
@@ -60,19 +75,53 @@ const RateEditor: React.FC = () => {
         {rates.map((rate) => (
           <tr key={rate.id}>
             <td className="border p-2">{rate.id}</td>
+
+            {/* Rate */}
             <td className="border p-2">
               {editId === rate.id ? (
                 <input
                   name="rate"
                   type="number"
-                  value={newRate}
+                  value={formValues.rate ?? ""}
                   onChange={handleChange}
-                  className="border p-1"
+                  className="border w-20 p-1"
                 />
               ) : (
                 rate.rate
               )}
             </td>
+
+            {/* Min Crypto */}
+            <td className="border p-2">
+              {editId === rate.id ? (
+                <input
+                  name="cryptomin"
+                  type="number"
+                  value={formValues.cryptomin ?? ""}
+                  onChange={handleChange}
+                  className="border w-7 p-1"
+                />
+              ) : (
+                rate.cryptomin
+              )}
+            </td>
+
+            {/* Min Naira */}
+            <td className="border p-2">
+              {editId === rate.id ? (
+                <input
+                  name="squadmin"
+                  type="number"
+                  value={formValues.squadmin ?? ""}
+                  onChange={handleChange}
+                  className="border w-14 p-1"
+                />
+              ) : (
+                rate.squadmin
+              )}
+            </td>
+
+            {/* Action */}
             <td className="border p-2">
               {editId === rate.id ? (
                 <button className="text-blue-600" onClick={() => saveEdit(rate.id)}>
@@ -87,7 +136,8 @@ const RateEditor: React.FC = () => {
           </tr>
         ))}
       </tbody>
-    </table>
+     </table>
+
     </div> 
   );
 };
