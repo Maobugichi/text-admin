@@ -5,22 +5,39 @@ const SusDepo = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
 
-  const { theme, totalDeposit } = myContext;
+  const { theme, totalDeposit , users } = myContext;
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
+
   const formatDate = (iso: string) => new Date(iso).toLocaleString();
 
-  const filteredDeposits = totalDeposit.filter((txn: any) => {
+    const sortedOrders = [...totalDeposit].sort((a: any, b: any) => {
+  
+    const dateA = new Date(a.created_at).getTime();
+    const dateB = new Date(b.created_at).getTime();
+    return dateB - dateA; 
+  });
+
+  const myFiltered = sortedOrders.filter(item => item.amount !== null)
+  const filteredDeposits = myFiltered.filter((txn: any) => {
     const q = searchQuery.toLowerCase();
+
     return (
       txn.transaction_ref.toLowerCase().includes(q) ||
       txn.user_id.toString().includes(q) ||
       txn.status.toLowerCase().includes(q) ||
       txn.source.toLowerCase().includes(q) ||
-      txn.note.toLowerCase().includes(q)
-    );
+      txn.note.toLowerCase().includes(q) 
+    )
+  }) .map((item: any) => {
+    
+    const user = users.find((u:any) => u.id === item.user_id);
+    return {
+      ...item,
+      email: user?.email || "Unknown",
+    };
   });
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -52,6 +69,7 @@ const SusDepo = () => {
           <thead className={`${theme ? "bg-[#111]" : "bg-gray-100"} font-semibold`}>
             <tr>
               <th className="p-3">Ref</th>
+              <th className="p-3">Email</th>
               <th className="p-3">User ID</th>
               <th className="p-3">Status</th>
               <th className="p-3">Amount</th>
@@ -68,6 +86,7 @@ const SusDepo = () => {
                   className={`border-t  ${theme ? "border-white hover:bg-[#222]" : "hover:bg-gray-50"}`}
                 >
                   <td className="p-3 whitespace-nowrap border border-solid">{txn.transaction_ref}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">{txn.email}</td>
                   <td className="p-3 whitespace-nowrap border border-solid">{txn.user_id}</td>
                   <td className="p-3 whitespace-nowrap border border-solid">
                     <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">

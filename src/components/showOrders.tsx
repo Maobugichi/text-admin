@@ -13,19 +13,28 @@ const ShowOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const filteredOrders = orders?.filter((order: any) => {
+
+  const sortedOrders = [...orders].sort((a: any, b: any) => {
+    const dateA = new Date(a.order_date).getTime();
+    const dateB = new Date(b.order_date).getTime();
+    return dateB - dateA; // descending: latest first
+  });
+  const filteredOrders = sortedOrders?.filter((order: any) => {
     const query = searchQuery.toLowerCase();
     return (
       order.username?.toLowerCase().includes(query) ||
       order.email?.toLowerCase().includes(query) ||
       order.purchased_number?.toLowerCase().includes(query) ||
-      order.service?.toLowerCase().includes(query)
+      order.service?.toLowerCase().includes(query)  
+      
     );
   }) || [];
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+ 
+  const isFiltered = filteredOrders.filter((item:any) => item.status.includes("success"))
+  const currentOrders = isFiltered.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   if (!orders || orders.length === 0) {
@@ -38,7 +47,7 @@ const ShowOrders = () => {
   }
 
   return (
-    <div className={`p-4 lg:ml-[250px] w-full md:w-[75%] mt-20 grid gap-3 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+    <div className={`p-4 bg-red-400 lg:ml-[250px] w-full md:w-[75%] mt-20 grid gap-3 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
       <h2 className="text-lg font-semibold mb-4">User Orders</h2>
 
       <input
@@ -89,7 +98,7 @@ const ShowOrders = () => {
         </table>
       </div>
 
-      <div className="flex justify-between items-center mt-4">
+      {currentOrders.length < 10 ? null :<div className="flex justify-between items-center mt-4">
         <div className="flex items-center space-x-2">
           <label htmlFor="itemsPerPage">Show:</label>
           <select
@@ -108,7 +117,7 @@ const ShowOrders = () => {
           <span>orders per page</span>
         </div>
 
-        <div className="space-x-2">
+         <div className="space-x-2">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((prev) => prev - 1)}
@@ -126,8 +135,8 @@ const ShowOrders = () => {
           >
             Next
           </button>
-        </div>
-      </div>
+         </div> 
+      </div>}
     </div>
   );
 };

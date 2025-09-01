@@ -5,25 +5,39 @@ const MoneyOut = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
 
-  const { moneyOut, theme } = myContext;
+  const { moneyOut, theme , users } = myContext;
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
-  const filteredMoneyOut = moneyOut.filter((item: any) => {
+ 
+  const sortedOrders = [...moneyOut].sort((a: any, b: any) => {
+  
+    const dateA = new Date(a.created_at).getTime();
+    const dateB = new Date(b.created_at).getTime();
+    return dateB - dateA; 
+  });
+  const filteredMoneyOut = sortedOrders.filter((item: any) => {
     const q = searchQuery.toLowerCase();
     return (
       item.user_id.toString().includes(q) ||
       item.note.toLowerCase().includes(q) ||
       item.amount.toString().includes(q)
     );
+  }).map((item: any) => {
+    
+    const user = users.find((u:any) => u.id === item.user_id);
+    return {
+      ...item,
+      email: user?.email || "Unknown",
+    };
   });
+
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentMoneyOut = filteredMoneyOut.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredMoneyOut.length / itemsPerPage);
-
+  
   return (
     <div className={`p-4 mt-20 md:ml-[250px] w-full md:w-[75%] overflow-x-auto`}>
       <div className="mb-4">
@@ -48,8 +62,10 @@ const MoneyOut = () => {
           <thead className={`${theme ? "bg-[#111]" : "bg-gray-100"} font-semibold`}>
             <tr>
               <th className="p-3">User ID</th>
+              <th className="p-3">User email</th>
               <th className="p-3">Note</th>
               <th className="p-3">Amount</th>
+              <th className="p-3">Date</th>
             </tr>
           </thead>
           <tbody>
@@ -60,10 +76,12 @@ const MoneyOut = () => {
                   className={`border-t ${theme ? "border-white hover:bg-[#222]" : "hover:bg-gray-50"}`}
                 >
                   <td className="p-3 whitespace-nowrap border border-solid">{item.user_id}</td>
+                  <td className="p-3 whitespace-nowrap border border-solid">{item.email}</td>
                   <td className="p-3 whitespace-nowrap border border-solid">{item.note}</td>
                   <td className="p-3 whitespace-nowrap border border-solid">
                     ₦{parseFloat(item.amount).toLocaleString("en-NG", { minimumFractionDigits: 2 })}
                   </td>
+                  <td className="p-3 whitespace-nowrap border border-solid">{item.created_at}</td>
                 </tr>
               ))
             ) : (

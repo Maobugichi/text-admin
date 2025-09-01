@@ -9,14 +9,21 @@ const Deposits = () => {
 
   const { deposit , theme } = myContext;
   const [searchTerm, setSearchTerm] = useState("");
-
+  const sortedOrders = [...deposit].sort((a: any, b: any) => {
+  
+    const dateA = new Date(a.created_at).getTime();
+    const dateB = new Date(b.created_at).getTime();
+    return dateB - dateA; 
+  });
   const formatDate = (iso: string) => new Date(iso).toLocaleString();
 
-  const filteredDeposits = deposit.filter(
+  
+  const filteredDeposits = sortedOrders.filter(
     (dep: any) =>
       dep.transaction_ref.toLowerCase().includes(searchTerm.toLowerCase()) ||
       dep.user_id.toString().toLowerCase().includes(searchTerm.toLowerCase())
   );
+
 
   const handleMarkSuccessful = async (id: number) => {
     try {

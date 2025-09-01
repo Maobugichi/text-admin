@@ -18,7 +18,7 @@ const Dashboard = () => {
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
       const depo = response.data.totalDepo[0].total_successful_deposit
       const apiGains = response.data.totalApiGains
-      console.log(response.data)
+     
       const items = [
         {
           link:'/showbalance/1',
