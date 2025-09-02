@@ -1,8 +1,9 @@
 import NavItems from "./navItems";
 import { motion , AnimatePresence } from "motion/react";
-import { X } from 'lucide-react';
+import { LogOutIcon, X } from 'lucide-react';
 import { useEffect, useState  , useContext} from "react";
 import { ShowContext } from "../context";
+import { Link } from "react-router-dom";
 
 
 
@@ -57,6 +58,10 @@ const SideNav:React.FC<SideNavProps> = ({show , setIsShow }) => {
                         closeNav={closeNav}
                         />
                     </div>
+
+                    <Link className="bg-red-600 rounded-full  w-10 h-11 grid place-items-center m-4" to="/">
+                        <LogOutIcon/>
+                    </Link>
                    
                 </nav> )   
             )

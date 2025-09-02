@@ -7,7 +7,7 @@ const Deposits = () => {
   const myContext = useContext(ShowContext);
   if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
 
-  const { deposit , theme } = myContext;
+  const { deposit , theme , users } = myContext;
   const [searchTerm, setSearchTerm] = useState("");
   const sortedOrders = [...deposit].sort((a: any, b: any) => {
   
@@ -22,7 +22,13 @@ const Deposits = () => {
     (dep: any) =>
       dep.transaction_ref.toLowerCase().includes(searchTerm.toLowerCase()) ||
       dep.user_id.toString().toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    ).map((item: any) => {
+      const user = users.find((u:any) => u.id === item.user_id);
+      return {
+        ...item,
+        email: user?.email || "Unknown",
+      };
+    });
 
 
   const handleMarkSuccessful = async (id: number) => {
@@ -88,6 +94,7 @@ const handleDeleteDeposit = async (id: number) => {
             <tr>
               <th className="p-3">Ref</th>
               <th className="p-3">User ID</th>
+              <th className="p-3">Email</th>
               <th className="p-3">Status</th>
               <th className="p-3">Amount</th>
               <th className="p-3">Date</th>
@@ -98,6 +105,7 @@ const handleDeleteDeposit = async (id: number) => {
               filteredDeposits.map((dep: any) => (
                 <tr key={dep.id} className={`border-t ${theme ? 'bg-[#1a1a1a]' : 'hover:bg-gray-50 text-gray-700'}  `}>
                   <td className="p-3 border border-solid">{dep.transaction_ref}</td>
+                  <td className="p-3 border border-solid">{dep.email}</td>
                   <td className="p-3 border border-solid">{dep.user_id}</td>
                  <td className="p-3 flex flex-col items-center gap-4 border border-solid">
                     <span

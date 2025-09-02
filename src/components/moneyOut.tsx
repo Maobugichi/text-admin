@@ -24,7 +24,6 @@ const MoneyOut = () => {
       item.amount.toString().includes(q)
     );
   }).map((item: any) => {
-    
     const user = users.find((u:any) => u.id === item.user_id);
     return {
       ...item,
