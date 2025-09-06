@@ -46,9 +46,10 @@ const SideNav:React.FC<SideNavProps> = ({show , setIsShow }) => {
                         <NavItems
                         closeNav={closeNav}
                         />
-
-                       
                     </div>
+                     <Link className="bg-red-600 rounded-full  w-10 h-10  ml-42 grid place-items-center " to="/">
+                        <LogOutIcon className="text-white"/>
+                    </Link>
                </motion.nav>) :
                 (<nav
                 className={`fixed z-20 md:w-[20%] h-[100vh] top-0 md:flex flex-col gap-5  border-r border-solid  ${theme ? 'bg-[#242424] border-blue-100' : 'bg-[#f9fbfd] border-[#5252]'}`}>
@@ -60,7 +61,7 @@ const SideNav:React.FC<SideNavProps> = ({show , setIsShow }) => {
                     </div>
 
                     <Link className="bg-red-600 rounded-full  w-10 h-11 grid place-items-center m-4" to="/">
-                        <LogOutIcon/>
+                        <LogOutIcon className="text-white"/>
                     </Link>
                    
                 </nav> )   
