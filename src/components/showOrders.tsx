@@ -47,7 +47,7 @@ const ShowOrders = () => {
   }
 
   return (
-    <div className={`p-4 bg-red-400 lg:ml-[250px] w-full md:w-[75%] mt-20 grid gap-3 ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
+    <div className={`p-4 lg:ml-[250px] w-full md:w-[75%] mt-20 grid gap-3 h-screen ${theme ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}>
       <h2 className="text-lg font-semibold mb-4">User Orders</h2>
 
       <input

@@ -7,14 +7,16 @@ interface Cost {
   id: number;
   low_cost: number;
   high_cost: number;
+  rent_cost: number;
 }
 
 const AdminCostsTable = () => {
   const [costs, setCosts] = useState<Cost[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState<{ low_cost: string; high_cost: string }>({
+  const [formData, setFormData] = useState<{ low_cost: string; high_cost: string; rent_cost:string }>({
     low_cost: "",
     high_cost: "",
+    rent_cost:""
   });
 
   useEffect(() => {
@@ -22,15 +24,14 @@ const AdminCostsTable = () => {
   }, []);
 
 
-  useEffect(() => {
-    console.log(costs)
-  },[costs])
+  
 
   const handleEdit = (cost: Cost) => {
     setEditingId(cost.id);
     setFormData({
       low_cost: cost.low_cost.toString(),
       high_cost: cost.high_cost.toString(),
+      rent_cost:cost.rent_cost.toString()
     });
   };
 
@@ -42,6 +43,7 @@ const AdminCostsTable = () => {
     const updatedData = {
       low_cost: parseFloat(formData.low_cost),
       high_cost: parseFloat(formData.high_cost),
+      rent_cost: parseFloat(formData.rent_cost)
     };
 
     await axios.put(`https://api.textflex.net/api/costs/${id}`, updatedData);
@@ -63,6 +65,7 @@ const AdminCostsTable = () => {
             <th className="border p-2">ID</th>
             <th className="border p-2">Low Cost</th>
             <th className="border p-2">High Cost</th>
+            <th className="border p-2">Rent Cost</th>
             <th className="border p-2">Actions</th>
           </tr>
         </thead>
@@ -94,6 +97,19 @@ const AdminCostsTable = () => {
                   />
                 ) : (
                   cost.high_cost
+                )}
+              </td>
+              <td className="border p-2">
+                {editingId === cost.id ? (
+                  <input
+                    type="number"
+                    name="rent_cost"
+                    value={formData.rent_cost}
+                    onChange={handleChange}
+                    className="border px-2 py-1"
+                  />
+                ) : (
+                  cost.rent_cost
                 )}
               </td>
               <td className="border p-2">
