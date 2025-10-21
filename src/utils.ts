@@ -40,12 +40,8 @@ type SubmitOptions<T> = {
   try {
     setShowLoader(true);
 
-    const apiUrl = `https://api.textflex.net/${endpoint}`
-    const response = await axios({
-      url: apiUrl,
-      method,
-      data,
-    });
+   
+    const response = await axios.post( `https://api.textflex.net/api/admin-login`,data , { withCredentials:true});
 
     console.log('Response:', response.data);
     onSuccess?.(response.data);

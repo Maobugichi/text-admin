@@ -14,7 +14,7 @@ const Dashboard = () => {
  if (!myContext) throw new Error("ShowContext must be used within a ContextProvider");
  const { setUsers , setApi , setMoneyOut , setDeposit , setOrders , theme , setTotalDeposit } = myContext
     async function getDashData() {
-      const response = await axios.get('https://api.textflex.net/api/admin-dash')
+      const response = await axios.get('https://api.textflex.net/api/admin-dash', { withCredentials:true })
       const values = Object.values(response.data as Record<string, number>).slice(0, 4);
       const depo = response.data.totalDepo[0].total_successful_deposit
       const apiGains = response.data.totalApiGains
