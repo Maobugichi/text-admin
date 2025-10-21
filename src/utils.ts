@@ -26,8 +26,7 @@ type SubmitOptions<T> = {
   data,
   setShowLoader,
   setData,
-  endpoint,
-  method,
+  
   onSuccess,
   onError
 }: SubmitOptions<T>) {
