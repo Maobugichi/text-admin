@@ -23,7 +23,7 @@ const ShowBalance = () => {
         alert("Please enter a valid amount greater than 0");
         return;
       }
-      await axios.put(`https://api.textflex.net/api/update-balance/${id}`, { balance: amountToAdd });
+      await axios.put(`https://api.textflex.net/api/update-balance/${id}`, { balance: amountToAdd } , { withCredentials:true});
       alert(`Added ₦${amountToAdd} to user ID ${id}`);
       setEditValues((prev: any) => ({ ...prev, [id]: "" }));
     } catch (error) {
